@@ -508,10 +508,16 @@ def live_now():
     if not fresh:
         return ""
     _, p = min(fresh)
-    who = "claude" if p.name == "live.png" else p.name[5:-4]
-    last = {r["who"]: r for r in attempts()}.get(who, {})
-    lvl = pathlib.Path(last.get("level", "")).stem
-    return f"{who} playing {lvl}" if lvl else f"{who} playing"
+    if p.name != "live.png":
+        who = p.name[5:-4]
+        last = {r["who"]: r for r in attempts()}.get(who, {})
+        lvl = pathlib.Path(last.get("level", "")).stem
+        return f"{who} playing {lvl}" if lvl else f"{who} playing"
+    # An unsuffixed frame comes from a container started on THIS machine -- a health sweep,
+    # or a solve run by hand -- not from an agent. Calling it "claude playing" put a name on
+    # the page that was not playing. The level is whichever log is being written right now.
+    logs = [(q.stat().st_mtime, q.stem) for q in OUT.glob("*.log")]
+    return f"a local run on {max(logs)[1]}" if logs else "a local run"
 
 
 def levels_html():

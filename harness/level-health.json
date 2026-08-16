@@ -1,0 +1,365 @@
+{
+ "attic/003.xml": {
+  "parts": 2,
+  "verdict": "STALLED",
+  "when": "2026-08-16 11:55"
+ },
+ "attic/box_bouncer.xml": {
+  "parts": 6,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:55"
+ },
+ "attic/poing-poing-poing.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:55"
+ },
+ "draft/hammer_time.xml": {
+  "parts": 12,
+  "verdict": "STALLED",
+  "when": "2026-08-16 11:56"
+ },
+ "finished/004.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:56"
+ },
+ "finished/005.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:56"
+ },
+ "finished/006.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:57"
+ },
+ "finished/10_kilograms_above_the_ground.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:57"
+ },
+ "finished/attack_of_the_killer_cacti.xml": {
+  "parts": 4,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:57"
+ },
+ "finished/balloon_blues.xml": {
+  "parts": 6,
+  "verdict": "AUTHOR KEY DID NOT WIN",
+  "when": "2026-08-16 11:57"
+ },
+ "finished/balloons-do-poof.xml": {
+  "parts": 1,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:58"
+ },
+ "finished/balloons-go-up.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:58"
+ },
+ "finished/birch_wood.xml": {
+  "parts": 5,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:58"
+ },
+ "finished/birds1.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:58"
+ },
+ "finished/boom_boom_boom.xml": {
+  "note": "you placed 3 x RightRamp but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/bouncing_balls.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:58"
+ },
+ "finished/bowling_pin_plays_soccer.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/box_puncher.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/bridge-2.xml": {
+  "parts": 4,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/bridge_gap.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/brother-plays-penguin-goalie.xml": {
+  "parts": 1,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/brother-plays-soccer.xml": {
+  "parts": 1,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/butterflies_of_doom.xml": {
+  "note": "you placed 2 x QuarterArc80 but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/butterfly-on-steroids.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 11:59"
+ },
+ "finished/cellar_workshop.xml": {
+  "note": "you placed 3 x LeftRamp but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/cola-powered-bike.v2.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:00"
+ },
+ "finished/cola_addiction.xml": {
+  "parts": 10,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:00"
+ },
+ "finished/cola_chaos.xml": {
+  "note": "you placed 2 x ColaMintBottle but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/cola_reaction.xml": {
+  "parts": 5,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:00"
+ },
+ "finished/construction_yard.xml": {
+  "parts": 5,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:00"
+ },
+ "finished/contraption1.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:00"
+ },
+ "finished/creativity.xml": {
+  "parts": 8,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/domino_chest.xml": {
+  "parts": 5,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/domino_flip_machine.xml": {
+  "parts": 18,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/domino_gap.xml": {
+  "parts": 8,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/find-the-message.v2.xml": {
+  "parts": 5,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/float-balloon-float.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:01"
+ },
+ "finished/flower_bomb.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:02"
+ },
+ "finished/goal_maker.xml": {
+  "parts": 6,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:02"
+ },
+ "finished/hattrick.xml": {
+  "parts": 7,
+  "verdict": "AUTHOR KEY DID NOT WIN",
+  "when": "2026-08-16 12:02"
+ },
+ "finished/house_of_cards.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:02"
+ },
+ "finished/imperfectbalance.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:03"
+ },
+ "finished/in_the_attic.xml": {
+  "parts": 7,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:03"
+ },
+ "finished/inversion.xml": {
+  "parts": 1,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:03"
+ },
+ "finished/jumping_around-2.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:03"
+ },
+ "finished/jumping_around.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:03"
+ },
+ "finished/little_balloon_puzzle.xml": {
+  "parts": 8,
+  "verdict": "STALLED",
+  "when": "2026-08-16 12:04"
+ },
+ "finished/loopings2.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:04"
+ },
+ "finished/maze.xml": {
+  "parts": 1,
+  "verdict": "STALLED",
+  "when": "2026-08-16 12:04"
+ },
+ "finished/party-at-office.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/picnic-0.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/picnic-1.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/picnic-3.xml": {
+  "parts": 4,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/pingu_poppins.xml": {
+  "parts": 6,
+  "verdict": "AUTHOR KEY DID NOT WIN",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/pingus-1.xml": {
+  "parts": 5,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/pingus-introduction.xml": {
+  "note": "you placed 3 x Wall but the toolbox has only 2",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/save-the-butterfly.xml": {
+  "parts": 2,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:05"
+ },
+ "finished/sorting-1.xml": {
+  "parts": 5,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:06"
+ },
+ "finished/sorting-2.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:06"
+ },
+ "finished/sorting-3.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:06"
+ },
+ "finished/sorting-5.xml": {
+  "parts": 16,
+  "verdict": "STALLED",
+  "when": "2026-08-16 12:07"
+ },
+ "finished/statics.xml": {
+  "parts": 8,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:07"
+ },
+ "finished/the_ball_the_box_and_the_penguin.xml": {
+  "parts": 2,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:07"
+ },
+ "finished/the_core.xml": {
+  "parts": 10,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:07"
+ },
+ "finished/the_pit.xml": {
+  "note": "you placed 3 x LeftFixedWedge but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/triangles.xml": {
+  "note": "you placed 2 x RightWedge but the toolbox has only 1",
+  "verdict": "UNPLACEABLE"
+ },
+ "finished/volley_valley.xml": {
+  "parts": 1,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:08"
+ },
+ "finished/wedge_land.xml": {
+  "parts": 5,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:08"
+ },
+ "finished/whee.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:08"
+ },
+ "needs-polish/002.xml": {
+  "parts": 1,
+  "verdict": "AUTHOR KEY DID NOT WIN",
+  "when": "2026-08-16 12:09"
+ },
+ "needs-polish/curvy.xml": {
+  "parts": 9,
+  "verdict": "STALLED",
+  "when": "2026-08-16 12:09"
+ },
+ "needs-polish/geyser.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:09"
+ },
+ "needs-polish/spare-the-balloon.xml": {
+  "parts": 3,
+  "verdict": "SOLVED",
+  "when": "2026-08-16 12:10"
+ },
+ "needs-polish/zoingandboom.xml": {
+  "parts": 3,
+  "verdict": "CRASHED",
+  "when": "2026-08-16 12:10"
+ }
+}
