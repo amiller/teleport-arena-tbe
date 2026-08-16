@@ -87,6 +87,13 @@ h1{font-size:26px;letter-spacing:-.025em;margin:0;font-weight:800}
 .console button[disabled]{opacity:.4;cursor:default}
 #agent{margin-top:11px;font:12.5px ui-monospace,Menlo,monospace;color:var(--dim)}
 #agent .err{color:var(--bad);white-space:pre-wrap}
+.clipinfo{display:none}
+.dl{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:9px 0;
+  border-bottom:1px solid var(--rule);font-size:13.5px;align-items:baseline}
+.dl:last-child{border-bottom:none}
+.dl>span:first-child{font:600 10.5px/1.7 ui-monospace,Menlo,monospace;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim)}
+.dl code{word-break:break-all}
 #rec{margin-top:5px;font:12.5px ui-monospace,Menlo,monospace;color:var(--dim)}
 .rec{color:var(--live)}
 .rec.off{color:var(--dim)}
@@ -195,6 +202,7 @@ details.more[open] summary{margin-bottom:13px}
 <div class="panel stage">
   <h2><span id="stagetitle">%STAGETITLE%</span>
       <button id="tolive" class="pill live-pill" onclick="showLive()">watch live</button></h2>
+  <div id="clipinfo" class="clipinfo"></div>
   <div class="stagegrid">
     <div>
       <div class="race" id="race">%RACE%</div>
@@ -211,6 +219,8 @@ details.more[open] summary{margin-bottom:13px}
   <div id="spend">&hellip;</div>
 </div>
 
+<div class="panel" id="evidence" style="display:none">
+  <h2>What produced this clip</h2><div id="clipdetail"></div></div>
 <div class="panel"><h2>Highlights &mdash; every level an agent has solved</h2>%HIGHLIGHTS%</div>
 <div class="panel"><h2>Everything else &mdash; click one to play it above</h2>%GALLERY%</div>
 
@@ -328,7 +338,18 @@ function pick(card, src, name){
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('on'));
   if(card) card.classList.add('on');
   window.__watchingClip = true;
+  // The clip is the visible half of an attempt; this is the rest of it.
+  const file = src.replace(/^\//,'');
+  fetch('/clip?f='+encodeURIComponent(file)).then(r=>r.text()).then(h=>{
+    document.getElementById('clipdetail').innerHTML = h;
+    document.getElementById('evidence').style.display = 'block';
+  });
   if(v.getBoundingClientRect().top < 0) v.scrollIntoView({block:'start'});
+}
+function loadThinking(f){
+  const el=document.getElementById('clipthink');
+  el.innerHTML='<p class="empty">reading the transcript on the agent host&hellip;</p>';
+  fetch('/clipthink?f='+encodeURIComponent(f)).then(r=>r.text()).then(h=>el.innerHTML=h);
 }
 function showLive(){
   const v=document.getElementById('replay'), i=document.getElementById('live');
@@ -568,7 +589,7 @@ def zed_py(script, timeout=90):
                        input=script, capture_output=True, text=True, timeout=timeout)
     if r.returncode != 0:
         return {"error": (r.stderr or r.stdout).strip()[:400]}
-    return json.loads(r.stdout or "{}")
+    return json.loads(r.stdout or "{}")   # callers pass scripts printing an object or a list
 
 
 THINKING_PY = """
@@ -1206,6 +1227,160 @@ def footage():
     return clips
 
 
+def clip_detail(clipfile):
+    """Everything we know about one attempt, assembled at the moment you click it.
+
+    All of this was already being kept and none of it was reachable from the video: the
+    attempt row has the placements and the verdict, the archived log has what the referee
+    actually saw, the run manifest has the conditions, and the agent's own reasoning is in a
+    transcript on the machine that ran it. This is the join, made visible."""
+    row = next((r for r in attempts() if r.get("clip") == clipfile), None)
+    if not row:
+        return ('<p class="empty">No attempt record for this clip &mdash; it is an author '
+                'contraption or predates the archive.</p>')
+    out = [f'<div class="dl"><span>placed</span><code>'
+           f'{html.escape(" ".join(row.get("places", []))) or "&mdash;"}</code></div>',
+           f'<div class="dl"><span>verdict</span><b>{html.escape(row.get("verdict","?"))}</b>'
+           f' &middot; {html.escape(row.get("who","claude"))}'
+           f' &middot; {html.escape(row.get("date",""))} {html.escape(row.get("time",""))}</div>']
+
+    # the conditions this run was produced under
+    runs = {r["run"]: r for r in _manifests()}
+    m = runs.get(row.get("run", ""))
+    if m:
+        out.append(f'<div class="dl"><span>conditions</span>harness <code>'
+                   f'{html.escape(m.get("harness_commit",""))}</code>'
+                   + (" (dirty)" if m.get("harness_dirty") else "")
+                   + f' &middot; {html.escape(m.get("provider",""))}/'
+                   f'{html.escape(m.get("model") or "-")}'
+                   f' &middot; vision {"yes" if m.get("vision") else "no"}'
+                   f' &middot; image <code>{html.escape((m.get("image") or "")[7:19])}</code></div>')
+    elif row.get("run"):
+        out.append(f'<div class="dl"><span>run</span><code>{html.escape(row["run"])}</code> '
+                   f'(manifest not synced)</div>')
+    else:
+        out.append('<div class="dl"><span>conditions</span><i>not recorded &mdash; this attempt '
+                   'predates run manifests</i></div>')
+
+    # what the referee saw, out of the archived log
+    log = OUT / row["log"] if row.get("log") else None
+    if log and log.exists():
+        import gzip
+        try:
+            text = gzip.open(log, "rt", errors="replace").read()
+        except OSError:
+            text = ""
+        goals, seen = [], set()
+        for line in text.splitlines():
+            m2 = re.search(r"GOALCHK obj=(\S+) type=(\d+) now=\(([-\d.]+),([-\d.]+)\) "
+                           r"limit=([-\d.]+)", line)
+            if m2 and m2.group(1) not in seen:
+                seen.add(m2.group(1))
+                goals.append(f'{m2.group(1)} at ({m2.group(3)},{m2.group(4)}) '
+                             f'against limit {m2.group(5)}')
+        won = text.count("AUTOMATED TESTING, slot_Won")
+        traces = text.count("TRACE t=")
+        out.append(f'<div class="dl"><span>referee</span>{"won" if won else "no win"} '
+                   f'&middot; {traces} state samples &middot; '
+                   f'{html.escape("; ".join(goals[:4])) or "no goal checks logged"}</div>')
+        out.append(f'<div class="dl"><span>full log</span>'
+                   f'<a href="/{html.escape(row["log"])}" download>'
+                   f'{html.escape(pathlib.Path(row["log"]).name)}</a> '
+                   f'({log.stat().st_size // 1024} kB gzipped)</div>')
+
+    # what else had been tried on this level by then
+    same = [r for r in attempts()
+            if pathlib.Path(r.get("level", "")).stem == pathlib.Path(row["level"]).stem
+            and r.get("epoch", 0) < row.get("epoch", 0)]
+    out.append(f'<div class="dl"><span>context</span>attempt '
+               f'{len(same) + 1} on this level; {len({tuple(r.get("places", [])) for r in same})}'
+               f' distinct placements tried before it</div>')
+
+    out.append(f'<div class="dl"><span>thinking</span>'
+               f'<button class="pill" onclick="loadThinking(\'{html.escape(clipfile)}\')">'
+               f'fetch the agent\'s reasoning around this attempt</button>'
+               f'<div id="clipthink"></div></div>')
+    return "".join(out)
+
+
+THINKING_AT_PY = """
+import glob, json, os, sys
+wt, lo, hi = %r, %f, %f
+out = []
+pats = [os.path.expanduser("~/.pi/agent/sessions") + "/*" + wt + "*/*.jsonl",
+        os.path.expanduser("~/.claude/projects") + "/*" + wt + "*/*.jsonl"]
+for pat in pats:
+    for f in glob.glob(pat):
+        for line in open(f):
+            try:
+                d = json.loads(line)
+            except Exception:
+                continue
+            ts = d.get("timestamp", "")
+            if len(ts) < 19:
+                continue
+            import calendar, time as _t
+            try:
+                e = calendar.timegm(_t.strptime(ts[:19], "%%Y-%%m-%%dT%%H:%%M:%%S"))
+            except ValueError:
+                continue
+            if not (lo <= e <= hi):
+                continue
+            m = d.get("message") or {}
+            if m.get("role") != "assistant":
+                continue
+            c = m.get("content")
+            if isinstance(c, str):
+                c = [{"type": "text", "text": c}]
+            for x in (c or []):
+                if not isinstance(x, dict):
+                    continue
+                t = x.get("type")
+                if t == "thinking" and x.get("thinking"):
+                    out.append(("thinking", x["thinking"]))
+                elif t == "text" and x.get("text"):
+                    out.append(("says", x["text"]))
+                elif t in ("toolCall", "tool_use"):
+                    a = x.get("arguments") or x.get("input") or {}
+                    out.append((x.get("name", "tool"),
+                                str(a.get("command") or a.get("file_path") or a.get("path") or "")))
+print(json.dumps(out[:12]))
+"""
+
+
+def thinking_around(clipfile):
+    """The agent's reasoning in the two minutes either side of one attempt.
+
+    Fetched on click rather than kept, because it lives on the machine that ran the agent and
+    there are 880 clips. This is the piece that turns a video into a trajectory: what it was
+    thinking when it chose those coordinates."""
+    row = next((r for r in attempts() if r.get("clip") == clipfile), None)
+    if not row or not row.get("epoch"):
+        return '<p class="empty">No timestamped attempt to align to.</p>'
+    who = row.get("who", "")
+    if not ZED:
+        return '<p class="empty">No remote configured to read transcripts from.</p>'
+    e = float(row["epoch"])
+    got = zed_py(THINKING_AT_PY % (who, e - 150, e + 30), timeout=120)
+    if isinstance(got, dict) and got.get("error"):
+        return f'<div class="err">{html.escape(got["error"])}</div>'
+    if not got:
+        return '<p class="empty">Nothing in the transcript for that window.</p>'
+    rows = []
+    for kind, text in got:
+        cls = "th" if kind == "thinking" else "tc"
+        rows.append(f'<div class="{cls}"><span class="t">{html.escape(kind)}</span>'
+                    f'{html.escape(str(text)[:700])}</div>')
+    return f'<div class="think" style="max-height:340px">{"".join(rows)}</div>'
+
+
+def _manifests():
+    f = OUT / "runs.jsonl"
+    if not f.exists():
+        return []
+    return [json.loads(l) for l in f.read_text().splitlines() if l.strip()]
+
+
 def highlights_html(clips=None):
     """The wins, one per level, newest first.
 
@@ -1375,6 +1550,12 @@ class H(BaseHTTPRequestHandler):
             return self._send(live_html().encode(), "text/html; charset=utf-8")
         if path == "agent":
             return self._send(agent_html().encode(), "text/html; charset=utf-8")
+        if path == "clip":
+            f = urllib.parse.parse_qs(self.path.split("?", 1)[-1]).get("f", [""])[0]
+            return self._send(clip_detail(f).encode(), "text/html; charset=utf-8")
+        if path == "clipthink":
+            f = urllib.parse.parse_qs(self.path.split("?", 1)[-1]).get("f", [""])[0]
+            return self._send(thinking_around(f).encode(), "text/html; charset=utf-8")
         if path == "rec":
             return self._send(recorder_html().encode(), "text/html; charset=utf-8")
         if path == "status":
