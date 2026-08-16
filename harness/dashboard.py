@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """A live view of the playtest loop. Run it, leave the tab open, watch agents play.
 
-    python3 dashboard.py [port]        # default 8765, listening on 127.0.0.1
+    python3 dashboard.py [port]        # default 8765
 
-    BIND=0.0.0.0 python3 dashboard.py            # reachable from elsewhere
-    REMOTE=myhost python3 dashboard.py           # also watch agents on another machine
-
-It listens on localhost by default on purpose: the console can start and stop agents, so
-think before binding it wider than the machine it runs on.
+It binds the overlay address, so the page is watchable from the phone and from zed but not
+from the LAN — it can start and stop agents, which is more than the LAN should be offered.
 
 Three things update on their own:
   - one LIVE pane per player, a screenshot of that player's running simulation refreshed
@@ -42,10 +39,6 @@ AGENT = OUT / "agent.json"
 # flags that module happened to be passed -- which is how the overnight loop died on
 # startup with "invalid literal for int(): --levels".
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 8765
-# Where to listen, and where the remote players live. All three are environment variables
-# because they are entirely site-specific: BIND=127.0.0.1 keeps the page local, and REMOTE
-# only matters if you run agents on another machine. With no REMOTE set, every local run
-# still shows up.
 BIND = os.environ.get("BIND", "127.0.0.1")
 ZED = os.environ.get("REMOTE", "")            # ssh host running the agents, or "" for none
 REPO_ON_ZED = os.environ.get("REMOTE_REPO", "~/teleport-arena-tbe")
@@ -817,13 +810,21 @@ def start_agent(level, provider="zai"):
         args += ["--model", model]
     if prov == "claude":
         args += ["--mode", "bypassPermissions"]     # detached runs stall on approvals
+    prompt = PROMPT.format(level=level, vision=vision.format(level=level),
+                           tried=already_tried(level))
     r = zed(*args, "--cwd", REPO_ON_ZED, "--worktree", wt,
-            "--title", f"arena {provider}: {stem}",
-            PROMPT.format(level=level, vision=vision.format(level=level),
-                          tried=already_tried(level)))
+            "--title", f"arena {provider}: {stem}", prompt)
     if r.returncode != 0:
         return {"error": (r.stderr or r.stdout).strip()}
-    a = {"id": json.loads(r.stdout)["agentId"], "level": level, "worktree": wt,
+    agent_id = json.loads(r.stdout)["agentId"]
+    # Stamp the conditions now, while they are known. Reconstructing afterwards is what
+    # issue #10 is about: today alone the prompt, the referee and the placement grammar all
+    # changed, and nothing in a trajectory recorded which it ran against.
+    import manifest
+    run = manifest.write(level=level, provider=provider, model=model,
+                         vision=(provider != "zai"), prompt=prompt,
+                         worktree=wt, agent_id=agent_id)
+    a = {"id": agent_id, "level": level, "worktree": wt, "run": run["run"],
          "provider": provider, "started": time.strftime("%H:%M:%S")}
     AGENT.write_text(json.dumps(a))
     return a

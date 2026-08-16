@@ -457,8 +457,15 @@ def _log(level, places, verdict, empty="", replace_running=False, clip="", log="
     # epoch as well as the clock: zed runs on CDT and the dashboard on EDT, so a row
     # written there and read here appeared an hour old the moment it landed, and the page
     # reported live work as stale. The wall-clock fields stay for reading logs by eye.
+    # The run id joins this verdict to the conditions that produced it. Written by whoever
+    # started the agent into out/run-id; absent for a hand-run attempt, which is honest --
+    # those were not produced under a recorded set of conditions either.
+    runid = ""
+    rf = OUT / "run-id"
+    if rf.exists():
+        runid = rf.read_text().strip()
     rows.append(json.dumps({"level": level, "places": list(places), "verdict": verdict,
-                            "empty": empty, "epoch": time.time(),
+                            "empty": empty, "epoch": time.time(), "run": runid,
                             "date": datetime.datetime.now().strftime("%Y-%m-%d"),
                             "time": datetime.datetime.now().strftime("%H:%M:%S"),
                             "clip": clip, "log": log}))
