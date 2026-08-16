@@ -12,10 +12,18 @@ that line rather than convenience:
 
 - The three patches. A diff against GPL source is a derivative of it. This is not a close
   call.
-- `answer-keys.json`. It is the levels' own `<hints>` blocks, copied out of TBE's level XML.
-  Content of the game, not a description of it. This is the one that is easy to get wrong,
-  because it looks like data we produced — the tool that extracted it is ours, what it
-  extracted is not.
+- `answer-keys.json`, conservatively. It is the levels' own `<hints>` blocks, copied out of
+  TBE's level XML — content of the game, not a description of it. The tool that extracted it
+  is ours; what it extracted is not.
+
+  The levels are **not** uniformly GPL, which is worth knowing before you reuse them. Each
+  level declares its own licence and across all 112 that is **106 CC0, 5 GPLv2, 1 WTFPL**.
+  Only three of the keys we hold come from a GPLv2 level:
+  `finished/cola-powered-bike.v2.xml`, `attic/poing-poing-poing.xml` and
+  `needs-polish/geyser.xml`. The other seventy-one are CC0, which carries no obligations at
+  all. The whole file sits under GPL-2.0 here because it is one file and three of its entries
+  require it; if you want the CC0 majority under CC0 terms, take them from upstream where the
+  per-level declaration travels with each one.
 
 **MIT — everything else**
 

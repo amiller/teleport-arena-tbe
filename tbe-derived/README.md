@@ -29,6 +29,13 @@ the play area, where it covers the thing you are trying to record.
 placements — lifted out of the level files by `tbe.py setup`, so that an agent reading the
 level it has been asked to solve does not get the answer with it.
 
-This is TBE's content, not ours: it is copied out of the game's level XML, which ships under
-the same licence. Nothing here is secret — it is all in the upstream repository — but it is
-theirs, so it lives on this side of the line.
+This is TBE's content, not ours: it is copied out of the game's level XML. Nothing here is
+secret — it is all in the upstream repository — but it is theirs, so it lives on this side of
+the line.
+
+It is filed under GPL-2.0 conservatively rather than accurately. Levels declare their licence
+individually and most are far more permissive than the code: across all 112 levels it is
+**106 CC0, 5 GPLv2, 1 WTFPL**. Exactly three of the 74 keys here come from a GPLv2 level —
+`finished/cola-powered-bike.v2.xml`, `attic/poing-poing-poing.xml`, `needs-polish/geyser.xml`
+— and the rest are CC0. Because this is a single file, it takes the strictest licence among
+its contents. Take the CC0 levels from upstream if you want them on CC0 terms.
