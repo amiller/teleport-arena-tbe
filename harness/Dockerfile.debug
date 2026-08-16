@@ -1,0 +1,10 @@
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential cmake git ca-certificates gettext \
+      qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qttools5-dev qttools5-dev-tools \
+      xvfb x11-utils imagemagick xdotool ffmpeg wmctrl python3 \
+ && rm -rf /var/lib/apt/lists/*
+RUN git clone --depth 1 https://github.com/the-butterfly-effect/tbe.git /src/tbe
+WORKDIR /src/tbe/build
+RUN cmake .. -DCMAKE_BUILD_TYPE=Debug && make -j"$(nproc)" && make install

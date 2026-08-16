@@ -1,0 +1,18 @@
+--- a/src/model/Goal.cpp
++++ b/src/model/Goal.cpp
+@@ -149,6 +149,16 @@
+ bool GoalPositionChange::checkForSuccess(void)
+ {
++    // Report what the goal actually sees, so a failed attempt says why it failed
++    // instead of just "no". Throttled with a prime so it rotates across goals.
++    {
++        static int theGoalLogTick = 0;
++        if (theBOPtr != nullptr && (theGoalLogTick++ % 101) == 0) {
++            Position p = theBOPtr->getTempCenter();
++            DEBUG1("GOALCHK obj=%s type=%d now=(%.3f,%.3f) limit=%.3f",
++                   ASCII(theBOPtr->getID()), (int)theType, p.x, p.y, theLimit);
++        }
++    }
+     // whine loudly in a debug build or softly in a release build
+     assert(theBOPtr != nullptr);
+     if (theBOPtr == nullptr)

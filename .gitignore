@@ -1,0 +1,9 @@
+# The game itself is cloned by `tbe.py setup`, not vendored.
+tbe-src/
+# Everything a run produces: recordings, logs, live frames, the per-attempt archive.
+harness/out/
+harness/zlogs/
+# Candidate level files written by `solve`.
+solve/
+__pycache__/
+*.pyc

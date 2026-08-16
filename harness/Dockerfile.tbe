@@ -1,0 +1,27 @@
+# The Butterfly Effect (GPL-2.0), the only substantial open-source Incredible Machine.
+# Verified 2026-08-13: builds and runs headless under Xvfb from this image.
+#
+#   docker build -f Dockerfile.tbe -t tbe .
+#   docker run --rm -v "$PWD/out:/out" tbe            # writes /out/tbe.png
+#
+# Notes that cost time to discover:
+#  - Box2D is VENDORED in src/Box2D. There is no external physics dependency.
+#  - gettext is required and is not in the project's own INSTALLING.md list. Without it
+#    the build dies with "Error 127" on i18n/*.gmo, which looks nothing like a missing
+#    package.
+#  - Run the INSTALLED binary (/usr/games/tbe), not build/src/tbe. The build-tree binary
+#    looks for levels at ../share/games/tbe/levels/levels.xml and aborts with a dialog.
+#  - Pinned to 22.04 for Qt5. The project sets cmake_minimum_required(VERSION 2.8.12),
+#    which CMake 4.x refuses outright.
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential cmake git ca-certificates gettext \
+      qtbase5-dev qtbase5-dev-tools libqt5svg5-dev qttools5-dev qttools5-dev-tools \
+      xvfb x11-utils imagemagick \
+ && rm -rf /var/lib/apt/lists/*
+RUN git clone --depth 1 https://github.com/the-butterfly-effect/tbe.git /src/tbe
+WORKDIR /src/tbe/build
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release && make -j"$(nproc)" && make install
+COPY run-headless.sh /run-headless.sh
+CMD ["bash", "/run-headless.sh"]

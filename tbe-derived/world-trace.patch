@@ -1,0 +1,25 @@
+--- a/src/model/World.cpp
++++ b/src/model/World.cpp
+@@ -362,6 +362,23 @@
+ qreal World::simStep (void)
+ {
++    // STATE TRACE: every object's id, position and angle, roughly twice a second.
++    // The simulation already knows all of this; without it a failed attempt can only
++    // be debugged by watching a video, which is guesswork.
++    {
++        static int theTraceTick = 0;
++        if ((theTraceTick++ % 30) == 0) {
++            foreach (AbstractObjectPtr objPtr, theObjectPtrList) {
++                if (objPtr == nullptr)
++                    continue;
++                Position p = objPtr->getTempCenter();
++                DEBUG1("TRACE t=%.2f id=%s type=%s pos=(%.3f,%.3f) angle=%.3f",
++                       theTotalTime, ASCII(objPtr->getID()),
++                       ASCII(objPtr->getName()), p.x, p.y, p.angle);
++            }
++        }
++    }
++
+     // clear the contact point lists
+     clearLists();
+ 

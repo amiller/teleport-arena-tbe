@@ -1,0 +1,78 @@
+--- a/src/view/ViewWorld.cpp	2026-08-15 13:37:05.961034650 -0400
++++ b/src/view/ViewWorld.cpp	2026-08-15 18:28:21.963782611 -0400
+@@ -188,7 +188,17 @@
+         theWorldPtr->createPhysicsWorld();
+     isSimRunning = true;
+     theSimulationTime = QTime::currentTime();
+-    theSimSpeed = 1000;
++    // A regression run has nobody watching it at human speed, so play it faster. The
++    // advance per step is simStep()*2*theSimSpeed ms = 0.008*theSimSpeed, against 4ms of
++    // physics, so the rate is 500/theSimSpeed: 1000 is half real time, 125 is 4x.
++    //
++    // NOT 60, which is what Shift+F uses. addMSecs takes an int and 0.008*60 = 0.48
++    // truncates to ZERO, so the simulated clock never advances, the loop below always runs
++    // its full 25 steps, and the event loop is saturated. Levels that end on a win or death
++    // signal still finished, because those short-circuit the state machine; levels whose
++    // empty run has to TIME OUT hung forever, because the regression timer never got
++    // serviced. 125 keeps the advance at a whole millisecond.
++    theSimSpeed = theIsRunAsRegression ? 125 : 1000;
+     theFramesPerSecond = 0;
+     emit theTimer.start(1000 / MAX_FPS);
+ 
+--- a/src/view/RegressionTest.cpp	2026-08-15 13:37:05.966034677 -0400
++++ b/src/view/RegressionTest.cpp	2026-08-15 14:25:20.609570972 -0400
+@@ -42,6 +42,13 @@
+ const qreal theTestAddition   = 0.0;
+ #endif
+ 
++/// A regression run plays at ViewWorld's "real fast" rate, whose ceiling is 6 seconds of
++/// physics per wall second. The waits below are wall time but stand for a simulated
++/// duration, so they divide by this. Deliberately 4 and not 6: on a loaded box the sim
++/// falls short of the ceiling, and a wait that expires early would cut a level short and
++/// report a solution as a failure. Raise it only with a rerun of the known solves.
++const int theSimSpeedup = 4;
++
+ #ifdef QT_DEBUG
+ 
+ RegressionTest::RegressionTest(MainWindow *parent) :
+@@ -78,7 +85,12 @@
+     theProgressPtr->setAutoClose(false);
+     theProgressPtr->setAutoReset(false);
+     connect (theProgressPtr, SIGNAL(canceled()), this, SLOT(slot_Cancel()));
+-    theProgressPtr->show();
++    // Never shown. It opens in the middle of the play area and covers the contraption in
++    // every frame of every recording, and there is nobody sitting here to read it. The
++    // minimum duration stops setValue() from popping it up again later; run-attempt.sh
++    // used to try to shove it off-screen with xdotool, which never matched because the
++    // window title is not the label text.
++    theProgressPtr->setMinimumDuration(1000000000);
+ }
+ 
+ void RegressionTest::startRegressionRun(void)
+@@ -148,7 +160,7 @@
+         break;
+     case STARTLEVELTOFAIL: { // Start Level, expect failure - either death or timeout
+         QTest::keyClick(theMainWindowPtr, Qt::Key_Space);
+-        myNextDelay = myLevelDurationSeconds * 1000;
++        myNextDelay = myLevelDurationSeconds * 1000 / theSimSpeedup;
+         theIsWon = false;
+         theIsFail = false;
+         theWantWonFail = true;
+@@ -199,7 +211,7 @@
+     case STARTLEVELTOWIN: { // Start Level, expect success
+         theWantWonFail = true;
+         QTest::keyClick(theMainWindowPtr, Qt::Key_Space);
+-        myNextDelay = myLevelDurationSeconds * 1000;
++        myNextDelay = myLevelDurationSeconds * 1000 / theSimSpeedup;
+         theIsWon = false;
+         theIsFail = false;
+         // Registering for success event (and fail event!) was already done in resizinggraphicsview
+@@ -211,7 +223,7 @@
+         theRegressionTimer.stop();
+         Q_ASSERT(theIsWon == true);
+         myNextState = NEXTLEVEL;
+-        myNextDelay = 4000;
++        myNextDelay = 500;      // was 4000: nobody is reading the win screen here
+         break;
+     case NEXTLEVEL: // Continue with next item in test
+         theWantWonFail = false;

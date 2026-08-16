@@ -1,0 +1,6 @@
+FROM tbe-dbg
+ENV DEBIAN_FRONTEND=noninteractive
+# Without a window manager nothing takes focus, so xdotool key events reach no window
+# and the level briefing dialog never gets dismissed. matchbox is tiny and does just that.
+RUN apt-get update && apt-get install -y --no-install-recommends matchbox-window-manager \
+ && rm -rf /var/lib/apt/lists/*

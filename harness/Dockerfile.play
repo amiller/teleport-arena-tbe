@@ -1,0 +1,4 @@
+FROM tbe-verify
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      xdotool ffmpeg python3 wmctrl && rm -rf /var/lib/apt/lists/*

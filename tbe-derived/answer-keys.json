@@ -1,0 +1,1996 @@
+{
+ "attic/003.xml": [
+  {
+   "X": 4.25,
+   "Y": 3.06,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 4.24,
+   "Y": 1.28,
+   "object": "LeftRamp"
+  }
+ ],
+ "attic/box_bouncer.xml": [
+  {
+   "X": 8.55967,
+   "Y": 5.76509,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 0.654449,
+   "Y": 5.86888,
+   "object": "RightRamp"
+  },
+  {
+   "X": 0.597,
+   "Y": 0.875,
+   "object": "RightRamp"
+  },
+  {
+   "X": 0.268198,
+   "Y": 1.86214,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 1.68607,
+   "Y": 0.513743,
+   "angle": -3.1416,
+   "object": "CardboardBox"
+  },
+  {
+   "X": 6.18,
+   "Y": 0.513743,
+   "angle": -3.1416,
+   "object": "CardboardBox"
+  }
+ ],
+ "attic/poing-poing-poing.xml": [
+  {
+   "X": 2.467,
+   "Y": 1.76,
+   "object": "CustomBall"
+  },
+  {
+   "X": 3.541,
+   "Y": 2.04,
+   "object": "CustomBall"
+  },
+  {
+   "X": 3.112,
+   "Y": 1.41,
+   "object": "CustomBall"
+  }
+ ],
+ "draft/hammer_time.xml": [
+  {
+   "X": 2.234,
+   "Y": 4.5,
+   "object": "Hammer"
+  },
+  {
+   "X": 3.15962,
+   "Y": 2.97887,
+   "object": "RightRamp"
+  },
+  {
+   "X": 4.58621,
+   "Y": 1.59878,
+   "angle": 0.0,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.29978,
+   "Y": 2.15907,
+   "angle": 0.0,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 2.4634,
+   "Y": 0.951107,
+   "angle": 0.0,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 5.54638,
+   "Y": 1.27486,
+   "angle": 0.0,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.234,
+   "Y": 3.7,
+   "angle": -1.5708,
+   "object": "Hammer"
+  },
+  {
+   "X": 2.234,
+   "Y": 2.9,
+   "angle": -1.5708,
+   "object": "Hammer"
+  },
+  {
+   "X": 2.234,
+   "Y": 2.1,
+   "angle": -1.5708,
+   "object": "Hammer"
+  },
+  {
+   "X": 3.8021,
+   "Y": 2.725,
+   "angle": -1.5708,
+   "object": "Hammer"
+  },
+  {
+   "X": 0.639144,
+   "Y": 1.92967,
+   "angle": -1.5708,
+   "object": "Hammer"
+  },
+  {
+   "X": 3.805,
+   "Y": 1.911,
+   "angle": -1.5708,
+   "object": "Hammer"
+  }
+ ],
+ "finished/004.xml": [
+  {
+   "X": 2.38,
+   "Y": 0.75,
+   "object": "BowlingBall"
+  }
+ ],
+ "finished/005.xml": [
+  {
+   "X": 2.267,
+   "Y": 1.775,
+   "object": "RectObject"
+  }
+ ],
+ "finished/006.xml": [
+  {
+   "X": 1.66,
+   "Y": 0.41,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 1.0,
+   "Y": 0.9,
+   "object": "BirchBar"
+  }
+ ],
+ "finished/10_kilograms_above_the_ground.xml": [
+  {
+   "X": 2.58,
+   "Y": 0.99,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 3.196,
+   "Y": 1.197,
+   "object": "BirchBar"
+  },
+  {
+   "X": 5.022,
+   "Y": 1.425,
+   "object": "BowlingPin"
+  }
+ ],
+ "finished/attack_of_the_killer_cacti.xml": [
+  {
+   "X": 1.142,
+   "Y": 1.759,
+   "angle": 2.4336,
+   "object": "Floor"
+  },
+  {
+   "X": 2.289,
+   "Y": 1.759,
+   "angle": 2.4336,
+   "object": "Floor"
+  },
+  {
+   "X": 3.379,
+   "Y": 1.759,
+   "angle": 2.4336,
+   "object": "Floor"
+  },
+  {
+   "X": 4.463,
+   "Y": 1.759,
+   "angle": 2.4336,
+   "object": "Floor"
+  }
+ ],
+ "finished/balloon_blues.xml": [
+  {
+   "X": 2.77,
+   "Y": 2.38,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 3.18,
+   "Y": 2.38,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 4.36,
+   "Y": 2.41,
+   "angle": -2.7,
+   "object": "BedOfNails"
+  },
+  {
+   "X": 3.09,
+   "Y": 2.48,
+   "object": "BirchBar"
+  },
+  {
+   "X": 1.49,
+   "Y": 0.65,
+   "object": "Floor"
+  },
+  {
+   "X": 3.54,
+   "Y": 0.39,
+   "angle": -1.49,
+   "object": "QuarterArc80"
+  }
+ ],
+ "finished/balloons-do-poof.xml": [
+  {
+   "X": 0.7,
+   "Y": 1.5,
+   "object": "BowlingBall"
+  }
+ ],
+ "finished/balloons-go-up.xml": [
+  {
+   "X": 0.33,
+   "Y": 0.32,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.3,
+   "Y": 0.56,
+   "object": "Floor"
+  }
+ ],
+ "finished/birch_wood.xml": [
+  {
+   "X": 2.708,
+   "Y": 1.5401,
+   "object": "Floor"
+  },
+  {
+   "X": 3.83,
+   "Y": 0.59,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 1.54004,
+   "Y": 1.30973,
+   "object": "BirchBar"
+  },
+  {
+   "X": 0.582314,
+   "Y": 1.00501,
+   "object": "RightWedge"
+  },
+  {
+   "X": 4.00945,
+   "Y": 1.96774,
+   "object": "LeftWedge"
+  }
+ ],
+ "finished/birds1.xml": [
+  {
+   "X": 4.15,
+   "Y": 2.0,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 0.2,
+   "Y": 0.2,
+   "object": "DetonatorBox"
+  },
+  {
+   "X": 7.8,
+   "Y": 0.65,
+   "object": "Dynamite"
+  }
+ ],
+ "finished/boom_boom_boom.xml": [
+  {
+   "X": 8.526,
+   "Y": 4.422,
+   "object": "Wall"
+  },
+  {
+   "X": 0.55,
+   "Y": 4.198,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 8.121,
+   "Y": 1.453,
+   "angle": 1.57079,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 0.958,
+   "Y": 1.104,
+   "angle": 3.14159,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 3.308,
+   "Y": 5.655,
+   "object": "RightRamp"
+  },
+  {
+   "X": 4.13,
+   "Y": 3.973,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.711,
+   "Y": 4.024,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.423,
+   "Y": 0.479,
+   "object": "LeftRamp"
+  }
+ ],
+ "finished/bouncing_balls.xml": [
+  {
+   "X": 1.1,
+   "Y": 1.2,
+   "object": "RightRamp"
+  }
+ ],
+ "finished/bowling_pin_plays_soccer.xml": [
+  {
+   "X": 3.0,
+   "Y": 1.15,
+   "object": "TennisBall"
+  }
+ ],
+ "finished/box_puncher.xml": [
+  {
+   "X": 0.888,
+   "Y": 1.717,
+   "object": "Floor"
+  },
+  {
+   "X": 2.817,
+   "Y": 1.078,
+   "object": "LeftFixedWedge"
+  }
+ ],
+ "finished/bridge-2.xml": [
+  {
+   "X": 1.751,
+   "Y": 2.174,
+   "object": "IBeam"
+  },
+  {
+   "X": 2.455,
+   "Y": 1.849,
+   "object": "Skyhook"
+  },
+  {
+   "X": 3.243,
+   "Y": 2.134,
+   "object": "IBeam"
+  },
+  {
+   "X": 2.605,
+   "Y": 2.025,
+   "object": "IBeam"
+  }
+ ],
+ "finished/bridge_gap.xml": [
+  {
+   "X": 2.464,
+   "Y": 1.936,
+   "object": "Skyhook"
+  },
+  {
+   "X": 3.173,
+   "Y": 2.032,
+   "object": "IBeam"
+  },
+  {
+   "X": 1.853,
+   "Y": 2.153,
+   "object": "IBeam"
+  }
+ ],
+ "finished/brother-plays-penguin-goalie.xml": [
+  {
+   "X": 1.287,
+   "Y": 1.809,
+   "object": "SoccerBall"
+  }
+ ],
+ "finished/brother-plays-soccer.xml": [
+  {
+   "X": 1.287,
+   "Y": 0.4,
+   "object": "SoccerBall"
+  }
+ ],
+ "finished/butterflies_of_doom.xml": [
+  {
+   "X": 0.802,
+   "Y": 2.134,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 0.724,
+   "Y": 0.228,
+   "object": "Butterfly"
+  },
+  {
+   "X": 1.837,
+   "Y": 2.017,
+   "object": "Butterfly"
+  },
+  {
+   "X": 1.115,
+   "Y": 0.609,
+   "angle": -3.1419,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 2.691,
+   "Y": 1.716,
+   "angle": -1.5007,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 5.414,
+   "Y": 0.331,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 2.066,
+   "Y": 1.466,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 0.346,
+   "Y": 1.382,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 1.701,
+   "Y": 0.402,
+   "object": "Floor"
+  },
+  {
+   "X": 2.571,
+   "Y": 2.332,
+   "object": "Floor"
+  }
+ ],
+ "finished/butterfly-on-steroids.xml": [
+  {
+   "X": 2.88,
+   "Y": 0.24,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 2.7,
+   "Y": 2.4,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 0.23,
+   "Y": 2.15,
+   "object": "BowlingBall"
+  }
+ ],
+ "finished/cellar_workshop.xml": [
+  {
+   "X": 0.257,
+   "Y": 3.495,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 4.807,
+   "Y": 3.579,
+   "object": "RightRamp"
+  },
+  {
+   "X": 5.36,
+   "Y": 2.409,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.445,
+   "Y": 1.705,
+   "object": "RightRamp"
+  },
+  {
+   "X": 0.931,
+   "Y": 0.859,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.432,
+   "Y": 0.939,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 3.615,
+   "Y": 2.268,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.9,
+   "Y": 0.354,
+   "object": "WoodCrateSquare"
+  },
+  {
+   "X": 2.605,
+   "Y": 0.354,
+   "object": "WoodCrateSquare"
+  },
+  {
+   "X": 3.309,
+   "Y": 0.354,
+   "object": "WoodCrateSquare"
+  },
+  {
+   "X": 4.013,
+   "Y": 0.354,
+   "object": "WoodCrateSquare"
+  },
+  {
+   "X": 4.718,
+   "Y": 0.354,
+   "object": "WoodCrateSquare"
+  },
+  {
+   "X": 4.877,
+   "Y": 1.435,
+   "object": "WoodCrateSquare"
+  }
+ ],
+ "finished/cola-powered-bike.v2.xml": [
+  {
+   "X": 2.6,
+   "Y": 2.2,
+   "object": "SoccerBall"
+  },
+  {
+   "X": 0.23,
+   "Y": 2.2,
+   "object": "SoccerBall"
+  }
+ ],
+ "finished/cola_addiction.xml": [
+  {
+   "X": 1.327,
+   "Y": 1.64,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 2.204,
+   "Y": 1.64,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 3.064,
+   "Y": 1.64,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 3.95,
+   "Y": 1.64,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 1.663,
+   "Y": 1.008,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 2.825,
+   "Y": 1.008,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 3.912,
+   "Y": 1.008,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 1.42,
+   "Y": 0.406,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 2.46,
+   "Y": 0.406,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 3.652,
+   "Y": 0.406,
+   "object": "ColaCrate"
+  }
+ ],
+ "finished/cola_chaos.xml": [
+  {
+   "X": 5.92817,
+   "Y": 0.49623,
+   "object": "Floor"
+  },
+  {
+   "X": 6.69061,
+   "Y": 0.974182,
+   "object": "Floor"
+  },
+  {
+   "X": 3.46444,
+   "Y": 2.25441,
+   "object": "Floor"
+  },
+  {
+   "X": 1.36913,
+   "Y": 1.68257,
+   "object": "Floor"
+  },
+  {
+   "X": 2.03201,
+   "Y": 1.69395,
+   "object": "Floor"
+  },
+  {
+   "X": 4.40156,
+   "Y": 1.38336,
+   "object": "Wall"
+  },
+  {
+   "X": 4.78279,
+   "Y": 1.1643,
+   "object": "Wall"
+  },
+  {
+   "X": 2.30114,
+   "Y": 1.23826,
+   "object": "Wall"
+  },
+  {
+   "X": 0.935041,
+   "Y": 3.50308,
+   "angle": 1.5708,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 1.24839,
+   "Y": 0.299162,
+   "angle": 1.577,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 4.44811,
+   "Y": 0.64679,
+   "angle": 4.72,
+   "object": "ColaMintBottle"
+  }
+ ],
+ "finished/cola_reaction.xml": [
+  {
+   "X": 2.531,
+   "Y": 3.396,
+   "angle": -1.5708,
+   "object": "BedOfNails"
+  },
+  {
+   "X": 3.995,
+   "Y": 0.871,
+   "object": "Floor"
+  },
+  {
+   "X": 2.151,
+   "Y": 1.458,
+   "object": "Floor"
+  },
+  {
+   "X": 1.302,
+   "Y": 1.941,
+   "object": "RightRamp"
+  },
+  {
+   "X": 3.219,
+   "Y": 3.465,
+   "object": "Floor"
+  }
+ ],
+ "finished/construction_yard.xml": [
+  {
+   "X": 2.7,
+   "Y": 2.47,
+   "object": "IBeam"
+  },
+  {
+   "X": 2.75,
+   "Y": 2.69,
+   "object": "IBeam"
+  },
+  {
+   "X": 5.24,
+   "Y": 2.68,
+   "object": "IBeam"
+  },
+  {
+   "X": 2.59,
+   "Y": 2.8,
+   "object": "IBeam"
+  },
+  {
+   "X": 4.02,
+   "Y": 2.8,
+   "object": "IBeam"
+  }
+ ],
+ "finished/contraption1.xml": [
+  {
+   "X": 0.31,
+   "Y": 0.45,
+   "object": "RightWedge"
+  },
+  {
+   "X": 2.31,
+   "Y": 0.86,
+   "object": "RightWedge"
+  }
+ ],
+ "finished/creativity.xml": [
+  {
+   "X": 1.491,
+   "Y": 3.163,
+   "object": "Cactus"
+  },
+  {
+   "X": 1.454,
+   "Y": 2.736,
+   "object": "Skyhook"
+  },
+  {
+   "X": 3.022,
+   "Y": 2.821,
+   "object": "Weight"
+  },
+  {
+   "X": 3.021,
+   "Y": 1.776,
+   "object": "IBeam"
+  },
+  {
+   "X": 3.033,
+   "Y": 1.088,
+   "object": "DetonatorBox"
+  },
+  {
+   "X": 3.06,
+   "Y": 0.775,
+   "object": "Floor"
+  },
+  {
+   "X": 5.926,
+   "Y": 1.981,
+   "object": "Wall"
+  },
+  {
+   "X": 5.933,
+   "Y": 2.77,
+   "object": "Dynamite"
+  }
+ ],
+ "finished/domino_chest.xml": [
+  {
+   "X": 4.4,
+   "Y": 4.408,
+   "angle": 4.3064,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 4.247,
+   "Y": 3.821,
+   "angle": 0.0,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 0.842,
+   "Y": 4.934,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 0.462,
+   "Y": 1.15,
+   "angle": 1.562,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 4.255,
+   "Y": 1.952,
+   "angle": -3.9354,
+   "object": "ColaMintBottle"
+  }
+ ],
+ "finished/domino_flip_machine.xml": [
+  {
+   "X": 0.505698,
+   "Y": 1.5584,
+   "object": "RightRamp"
+  },
+  {
+   "X": 10.4455,
+   "Y": 4.78087,
+   "object": "RightRamp"
+  },
+  {
+   "X": 6.78297,
+   "Y": 1.59093,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 10.1891,
+   "Y": 3.17699,
+   "object": "RightRamp"
+  },
+  {
+   "X": 12.9053,
+   "Y": 3.9213,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 14.4886,
+   "Y": 1.84936,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 2.85648,
+   "Y": 4.05556,
+   "object": "RightRamp"
+  },
+  {
+   "X": 5.67593,
+   "Y": 2.80591,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 6.35086,
+   "Y": 5.32094,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 3.07184,
+   "Y": 5.45045,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 4.5885,
+   "Y": 6.31146,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 9.59541,
+   "Y": 4.58223,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 12.5601,
+   "Y": 4.84987,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 10.7754,
+   "Y": 5.83092,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 10.8189,
+   "Y": 1.08903,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 8.17647,
+   "Y": 1.14886,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 9.29328,
+   "Y": 2.01638,
+   "angle": -1.5708,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 7.04445,
+   "Y": 3.97524,
+   "angle": -0.2618,
+   "object": "DominoBlue"
+  }
+ ],
+ "finished/domino_gap.xml": [
+  {
+   "X": 1.75484,
+   "Y": 0.362536,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.43433,
+   "Y": 0.357194,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.76481,
+   "Y": 0.876068,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.77479,
+   "Y": 1.37963,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.78405,
+   "Y": 1.88319,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.11702,
+   "Y": 0.357194,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.81004,
+   "Y": 2.38675,
+   "angle": 0.0,
+   "object": "DominoRed"
+  },
+  {
+   "X": 1.81432,
+   "Y": 2.89494,
+   "angle": 0.0,
+   "object": "DominoRed"
+  }
+ ],
+ "finished/find-the-message.v2.xml": [
+  {
+   "X": 5.418,
+   "Y": 2.182,
+   "angle": 0.0,
+   "object": "VolleyBall"
+  },
+  {
+   "X": 2.399,
+   "Y": 2.665,
+   "object": "Spring"
+  },
+  {
+   "X": 0.906,
+   "Y": 2.241,
+   "angle": 1.57,
+   "object": "RightWedge"
+  },
+  {
+   "X": 0.292,
+   "Y": 1.763,
+   "angle": 0.0,
+   "object": "RightWedge"
+  },
+  {
+   "X": 0.346,
+   "Y": 1.23,
+   "angle": 0.0,
+   "object": "Dynamite"
+  }
+ ],
+ "finished/float-balloon-float.xml": [
+  {
+   "X": 1.17,
+   "Y": 1.7,
+   "angle": 3.14,
+   "object": "BedOfNails"
+  },
+  {
+   "X": 0.61,
+   "Y": 1.3,
+   "angle": 0.6,
+   "object": "BedOfNails"
+  }
+ ],
+ "finished/flower_bomb.xml": [
+  {
+   "X": 2.539,
+   "Y": 1.407,
+   "object": "PegMetal"
+  }
+ ],
+ "finished/goal_maker.xml": [
+  {
+   "X": 1.828,
+   "Y": 2.179,
+   "object": "Wall"
+  },
+  {
+   "X": 2.108,
+   "Y": 2.03,
+   "object": "Wall"
+  },
+  {
+   "X": 4.345,
+   "Y": 2.821,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 4.341,
+   "Y": 1.926,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.501,
+   "Y": 1.444,
+   "angle": 3.14,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 1.906,
+   "Y": 1.444,
+   "angle": -1.5708,
+   "object": "QuarterArc40"
+  }
+ ],
+ "finished/hattrick.xml": [
+  {
+   "X": 5.613,
+   "Y": 3.878,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 0.802,
+   "Y": 2.787,
+   "object": "RightRamp"
+  },
+  {
+   "X": 0.782,
+   "Y": 2.091,
+   "object": "RightRamp"
+  },
+  {
+   "X": 4.424,
+   "Y": 2.963,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.946,
+   "Y": 1.923,
+   "object": "Floor"
+  },
+  {
+   "X": 2.77,
+   "Y": 0.835,
+   "object": "Floor"
+  },
+  {
+   "X": 0.392,
+   "Y": 0.373,
+   "angle": 1.57,
+   "object": "ColaMintBottle"
+  }
+ ],
+ "finished/house_of_cards.xml": [
+  {
+   "X": 15.2,
+   "Y": 2.1,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 13.0,
+   "Y": 1.2,
+   "object": "LeftRamp"
+  }
+ ],
+ "finished/imperfectbalance.xml": [
+  {
+   "X": 0.476,
+   "Y": 2.21,
+   "angle": 0.0,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 0.334,
+   "Y": 0.347,
+   "angle": 0.0,
+   "object": "RightWedge"
+  }
+ ],
+ "finished/in_the_attic.xml": [
+  {
+   "X": 1.15,
+   "Y": 1.07,
+   "object": "BirchBar"
+  },
+  {
+   "X": 0.95,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 2.38,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 2.04,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 1.7,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 1.36,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  },
+  {
+   "X": 1.15,
+   "Y": 0.93,
+   "object": "PetanqueBoule"
+  }
+ ],
+ "finished/inversion.xml": [
+  {
+   "X": 1.81954,
+   "Y": 1.26579,
+   "object": "LeftRamp"
+  }
+ ],
+ "finished/jumping_around-2.xml": [
+  {
+   "X": 2.682,
+   "Y": 0.303,
+   "angle": 1.57,
+   "object": "Spring"
+  }
+ ],
+ "finished/jumping_around.xml": [
+  {
+   "X": 0.843,
+   "Y": 2.65,
+   "object": "VolleyBall"
+  }
+ ],
+ "finished/little_balloon_puzzle.xml": [
+  {
+   "X": 2.921,
+   "Y": 2.416,
+   "object": "VolleyBall"
+  },
+  {
+   "X": 2.555,
+   "Y": 1.365,
+   "object": "VolleyBall"
+  },
+  {
+   "X": 2.826,
+   "Y": 0.539,
+   "object": "Wall"
+  },
+  {
+   "X": 3.016,
+   "Y": 0.339,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 2.43,
+   "Y": 2.257,
+   "object": "Floor"
+  },
+  {
+   "X": 2.202,
+   "Y": 0.806,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.299,
+   "Y": 1.864,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 2.332,
+   "Y": 1.857,
+   "object": "RightRamp"
+  }
+ ],
+ "finished/loopings2.xml": [
+  {
+   "X": 1.9,
+   "Y": 2.18,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 2.6,
+   "Y": 1.38,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 0.142,
+   "Y": 2.626,
+   "object": "BirchBar"
+  }
+ ],
+ "finished/maze.xml": [
+  {
+   "X": 3.794,
+   "Y": 3.172,
+   "object": "RightFixedWedge"
+  }
+ ],
+ "finished/party-at-office.xml": [
+  {
+   "X": 1.11,
+   "Y": 2.1,
+   "object": "Floor"
+  },
+  {
+   "X": 0.43,
+   "Y": 0.37,
+   "object": "RightRamp"
+  }
+ ],
+ "finished/picnic-0.xml": [
+  {
+   "X": 6.3,
+   "Y": 2.5,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 6.2,
+   "Y": 0.7,
+   "angle": -1.6,
+   "object": "QuarterArc80"
+  }
+ ],
+ "finished/picnic-1.xml": [
+  {
+   "X": 2.1,
+   "Y": 0.05,
+   "object": "BirchBar"
+  },
+  {
+   "X": 0.601,
+   "Y": 0.4,
+   "angle": -3.14,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 5.492,
+   "Y": 1.048,
+   "angle": -1.571,
+   "object": "QuarterArc80"
+  }
+ ],
+ "finished/picnic-3.xml": [
+  {
+   "X": 5.3,
+   "Y": 0.25,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 2.216,
+   "Y": 0.886,
+   "object": "Spring"
+  },
+  {
+   "X": 0.55,
+   "Y": 0.96,
+   "object": "BowlingBall"
+  },
+  {
+   "X": 3.85,
+   "Y": 0.45,
+   "object": "Floor"
+  }
+ ],
+ "finished/pingu_poppins.xml": [
+  {
+   "X": 2.825,
+   "Y": 2.971,
+   "object": "PingusWalkLeft"
+  },
+  {
+   "X": 2.833,
+   "Y": 2.767,
+   "object": "Floor"
+  },
+  {
+   "X": 3.846,
+   "Y": 2.88,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.811,
+   "Y": 2.876,
+   "object": "RightRamp"
+  },
+  {
+   "X": 3.408,
+   "Y": 3.055,
+   "object": "Styrofoam"
+  },
+  {
+   "X": 2.233,
+   "Y": 3.055,
+   "object": "Styrofoam"
+  }
+ ],
+ "finished/pingus-1.xml": [
+  {
+   "X": 2.898,
+   "Y": 2.991,
+   "angle": 0.0,
+   "object": "RightRamp"
+  },
+  {
+   "X": 5.6,
+   "Y": 2.39,
+   "angle": 0.0,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 2.775,
+   "Y": 1.711,
+   "angle": 0.0,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.408,
+   "Y": 1.36,
+   "angle": 1.571,
+   "object": "WoodCrateFlat"
+  },
+  {
+   "X": 5.136,
+   "Y": 0.3,
+   "angle": 0.0,
+   "object": "WoodCrateFlat"
+  }
+ ],
+ "finished/pingus-introduction.xml": [
+  {
+   "X": 0.445,
+   "Y": 1.993,
+   "object": "Wall"
+  },
+  {
+   "X": 5.405,
+   "Y": 1.871,
+   "object": "Wall"
+  },
+  {
+   "X": 5.405,
+   "Y": 0.733,
+   "object": "Wall"
+  },
+  {
+   "X": 1.979,
+   "Y": 1.18,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.842,
+   "Y": 2.412,
+   "object": "Skyhook"
+  },
+  {
+   "X": 3.077,
+   "Y": 2.412,
+   "object": "Skyhook"
+  }
+ ],
+ "finished/save-the-butterfly.xml": [
+  {
+   "X": 2.3,
+   "Y": 2.45,
+   "object": "Cactus"
+  },
+  {
+   "X": 1.2,
+   "Y": 2.7,
+   "object": "RightRamp"
+  }
+ ],
+ "finished/sorting-1.xml": [
+  {
+   "X": 2.05542,
+   "Y": 3.12142,
+   "angle": -0.168758,
+   "object": "Floor"
+  },
+  {
+   "X": 3.96907,
+   "Y": 2.37268,
+   "angle": 4.55282,
+   "object": "Floor"
+  },
+  {
+   "X": 5.15722,
+   "Y": 2.14072,
+   "angle": 1.40395,
+   "object": "Floor"
+  },
+  {
+   "X": 3.20805,
+   "Y": 1.791,
+   "angle": 5.40047,
+   "object": "Floor"
+  },
+  {
+   "X": 4.57732,
+   "Y": 2.66134,
+   "angle": 6.07779,
+   "object": "Floor"
+  }
+ ],
+ "finished/sorting-2.xml": [
+  {
+   "X": 2.11206,
+   "Y": 2.00985,
+   "angle": -0.202114,
+   "object": "Floor"
+  },
+  {
+   "X": 3.09299,
+   "Y": 2.42918,
+   "angle": 6.20932,
+   "object": "Floor"
+  }
+ ],
+ "finished/sorting-3.xml": [
+  {
+   "X": 1.207,
+   "Y": 2.018,
+   "angle": -0.813,
+   "object": "Floor"
+  },
+  {
+   "X": 4.629,
+   "Y": 0.931,
+   "object": "Wall"
+  },
+  {
+   "X": 5.947,
+   "Y": 2.163,
+   "object": "Wall"
+  }
+ ],
+ "finished/sorting-5.xml": [
+  {
+   "X": 10.873,
+   "Y": 11.035,
+   "angle": 0.006,
+   "object": "Floor"
+  },
+  {
+   "X": 3.854,
+   "Y": 7.577,
+   "angle": 5.2193,
+   "object": "Floor"
+  },
+  {
+   "X": 6.475,
+   "Y": 3.216,
+   "angle": 0.0,
+   "object": "Floor"
+  },
+  {
+   "X": 7.675,
+   "Y": 3.29,
+   "angle": 0.0,
+   "object": "Floor"
+  },
+  {
+   "X": 5.54408,
+   "Y": 1.00364,
+   "angle": 0.0123,
+   "object": "Floor"
+  },
+  {
+   "X": 8.66206,
+   "Y": 2.8961,
+   "angle": 6.56937,
+   "object": "Floor"
+  },
+  {
+   "X": 10.1055,
+   "Y": 2.73008,
+   "angle": 1.57333,
+   "object": "Floor"
+  },
+  {
+   "X": 10.381,
+   "Y": 4.55876,
+   "angle": 6.1343,
+   "object": "Floor"
+  },
+  {
+   "X": 11.5468,
+   "Y": 5.13137,
+   "angle": 6.17685,
+   "object": "Floor"
+  },
+  {
+   "X": 15.6209,
+   "Y": 1.0838,
+   "angle": 9.28736,
+   "object": "Floor"
+  },
+  {
+   "X": 13.71,
+   "Y": 3.55508,
+   "angle": 12.361,
+   "object": "Floor"
+  },
+  {
+   "X": 12.2382,
+   "Y": 2.33559,
+   "angle": 1.31569,
+   "object": "Floor"
+  },
+  {
+   "X": 17.582,
+   "Y": 5.601,
+   "angle": 0.2642,
+   "object": "Floor"
+  },
+  {
+   "X": 15.0528,
+   "Y": 2.23207,
+   "angle": 4.76879,
+   "object": "Floor"
+  },
+  {
+   "X": 16.5073,
+   "Y": 1.68327,
+   "angle": -0.500927,
+   "object": "Floor"
+  },
+  {
+   "X": 19.53,
+   "Y": 3.271,
+   "angle": -4.6971,
+   "object": "Floor"
+  }
+ ],
+ "finished/statics.xml": [
+  {
+   "X": 4.95,
+   "Y": 3.637,
+   "object": "IBeam"
+  },
+  {
+   "X": 4.733,
+   "Y": 2.786,
+   "object": "IBeam"
+  },
+  {
+   "X": 4.541,
+   "Y": 1.371,
+   "object": "IBeam"
+  },
+  {
+   "X": 4.003,
+   "Y": 3.144,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 5.143,
+   "Y": 3.182,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 4.688,
+   "Y": 2.414,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 4.49,
+   "Y": 1.768,
+   "object": "ColaCrate"
+  },
+  {
+   "X": 5.136,
+   "Y": 1.019,
+   "object": "ColaCrate"
+  }
+ ],
+ "finished/the_ball_the_box_and_the_penguin.xml": [
+  {
+   "X": 2.5,
+   "Y": 2.75,
+   "object": "Wall"
+  },
+  {
+   "X": 6.46,
+   "Y": 0.94,
+   "object": "Wall"
+  }
+ ],
+ "finished/the_core.xml": [
+  {
+   "X": 1.212,
+   "Y": 7.136,
+   "object": "Dynamite"
+  },
+  {
+   "X": 6.796,
+   "Y": 0.319,
+   "object": "DetonatorBox"
+  },
+  {
+   "X": 7.078,
+   "Y": 3.683,
+   "object": "Wall"
+  },
+  {
+   "X": 2.9,
+   "Y": 5.805,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 5.64,
+   "Y": 3.211,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 1.968,
+   "Y": 4.127,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.295,
+   "Y": 3.357,
+   "object": "RightRamp"
+  },
+  {
+   "X": 5.64,
+   "Y": 3.965,
+   "object": "RightRamp"
+  },
+  {
+   "X": 2.354,
+   "Y": 4.952,
+   "object": "Floor"
+  },
+  {
+   "X": 4.681,
+   "Y": 3.857,
+   "object": "Floor"
+  }
+ ],
+ "finished/the_pit.xml": [
+  {
+   "X": 0.426,
+   "Y": 5.896,
+   "angle": 3.1465,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 0.867,
+   "Y": 3.657,
+   "angle": 3.1505,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 7.548,
+   "Y": 4.244,
+   "angle": 4.4395,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 7.663,
+   "Y": 2.512,
+   "angle": 4.7135,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 2.921,
+   "Y": 5.625,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 0.92,
+   "Y": 0.487,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 5.583,
+   "Y": 1.535,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 2.316,
+   "Y": 1.824,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 6.903,
+   "Y": 1.973,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 4.693,
+   "Y": 1.854,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 8.856,
+   "Y": 1.508,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 8.726,
+   "Y": 2.988,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 8.898,
+   "Y": 3.898,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 8.676,
+   "Y": 4.775,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 8.841,
+   "Y": 5.723,
+   "object": "RotatingBar"
+  },
+  {
+   "X": 4.662,
+   "Y": 4.186,
+   "object": "RightRamp"
+  },
+  {
+   "X": 1.572,
+   "Y": 4.649,
+   "object": "Wall"
+  },
+  {
+   "X": 7.896,
+   "Y": 5.121,
+   "object": "Wall"
+  },
+  {
+   "X": 0.241,
+   "Y": 4.689,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 2.293,
+   "Y": 4.148,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 3.172,
+   "Y": 3.267,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 5.275,
+   "Y": 3.381,
+   "object": "RightFixedWedge"
+  }
+ ],
+ "finished/triangles.xml": [
+  {
+   "X": 2.752,
+   "Y": 2.477,
+   "angle": 0.8078,
+   "object": "RightWedge"
+  },
+  {
+   "X": 2.05,
+   "Y": 1.721,
+   "angle": -3.9121,
+   "object": "RightWedge"
+  }
+ ],
+ "finished/volley_valley.xml": [
+  {
+   "X": 0.669,
+   "Y": 2.067,
+   "angle": 0.2899,
+   "object": "QuarterArc80"
+  }
+ ],
+ "finished/wedge_land.xml": [
+  {
+   "X": 2.209,
+   "Y": 2.469,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 5.687,
+   "Y": 2.442,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 7.719,
+   "Y": 1.78,
+   "object": "RightFixedWedge"
+  },
+  {
+   "X": 6.422,
+   "Y": 4.034,
+   "object": "LeftFixedWedge"
+  },
+  {
+   "X": 7.343,
+   "Y": 3.251,
+   "object": "LeftFixedWedge"
+  }
+ ],
+ "finished/whee.xml": [
+  {
+   "X": 4.452,
+   "Y": 2.715,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 3.083,
+   "Y": 1.804,
+   "object": "RightRamp"
+  },
+  {
+   "X": 4.075,
+   "Y": 0.966,
+   "object": "LeftRamp"
+  }
+ ],
+ "needs-polish/002.xml": [
+  {
+   "X": 0.4,
+   "Y": 1.05,
+   "object": "BowlingBall"
+  }
+ ],
+ "needs-polish/curvy.xml": [
+  {
+   "X": 4.12836,
+   "Y": 3.51435,
+   "angle": 0.0,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 4.12169,
+   "Y": 2.71346,
+   "angle": -1.5708,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 2.38643,
+   "Y": 1.64561,
+   "angle": -3.1416,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 1.99933,
+   "Y": 3.83526,
+   "angle": -3.1416,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 1.99844,
+   "Y": 4.63615,
+   "angle": 1.5708,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 4.12837,
+   "Y": 4.92836,
+   "angle": -1.5708,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 1.38465,
+   "Y": 6.05495,
+   "angle": -3.13933,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 3.57174,
+   "Y": 3.32242,
+   "angle": 0.0,
+   "object": "QuarterArc40"
+  },
+  {
+   "X": 1.99199,
+   "Y": 5.55055,
+   "angle": -3.1416,
+   "object": "QuarterArc80"
+  }
+ ],
+ "needs-polish/geyser.xml": [
+  {
+   "X": 3.65,
+   "Y": 0.9,
+   "object": "IBeam"
+  },
+  {
+   "X": 1.05,
+   "Y": 2.7,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 0.72,
+   "Y": 1.12,
+   "object": "RightRamp"
+  }
+ ],
+ "needs-polish/spare-the-balloon.xml": [
+  {
+   "X": 0.37,
+   "Y": 1.25,
+   "angle": -1.11,
+   "object": "ColaMintBottle"
+  },
+  {
+   "X": 0.39,
+   "Y": 1.0,
+   "angle": 0.0,
+   "object": "LeftWedge"
+  },
+  {
+   "X": 1.63,
+   "Y": 1.755,
+   "angle": -5.27,
+   "object": "Floor"
+  }
+ ],
+ "needs-polish/zoingandboom.xml": [
+  {
+   "X": 5.15,
+   "Y": 2.82,
+   "object": "QuarterArc80"
+  },
+  {
+   "X": 4.94,
+   "Y": 0.47,
+   "object": "LeftRamp"
+  },
+  {
+   "X": 0.88,
+   "Y": 2.44,
+   "object": "RightRamp"
+  }
+ ]
+}
