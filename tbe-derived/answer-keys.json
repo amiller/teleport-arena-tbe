@@ -77,61 +77,81 @@
    "X": 4.58621,
    "Y": 1.59878,
    "angle": 0.0,
-   "object": "RightRamp"
+   "height": 0.290323,
+   "object": "RightRamp",
+   "width": 1.0
   },
   {
    "X": 1.29978,
    "Y": 2.15907,
    "angle": 0.0,
-   "object": "LeftRamp"
+   "height": 0.29,
+   "object": "LeftRamp",
+   "width": 1.0
   },
   {
    "X": 2.4634,
    "Y": 0.951107,
    "angle": 0.0,
-   "object": "LeftRamp"
+   "height": 0.29,
+   "object": "LeftRamp",
+   "width": 1.0
   },
   {
    "X": 5.54638,
    "Y": 1.27486,
    "angle": 0.0,
-   "object": "RightRamp"
+   "height": 0.290323,
+   "object": "RightRamp",
+   "width": 1.0
   },
   {
    "X": 2.234,
    "Y": 3.7,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   },
   {
    "X": 2.234,
    "Y": 2.9,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   },
   {
    "X": 2.234,
    "Y": 2.1,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   },
   {
    "X": 3.8021,
    "Y": 2.725,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   },
   {
    "X": 0.639144,
    "Y": 1.92967,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   },
   {
    "X": 3.805,
    "Y": 1.911,
    "angle": -1.5708,
-   "object": "Hammer"
+   "height": 0.18,
+   "object": "Hammer",
+   "width": 0.45
   }
  ],
  "finished/004.xml": [
@@ -169,7 +189,8 @@
   {
    "X": 3.196,
    "Y": 1.197,
-   "object": "BirchBar"
+   "object": "BirchBar",
+   "width": 3.929
   },
   {
    "X": 5.022,
@@ -304,12 +325,16 @@
   {
    "X": 8.526,
    "Y": 4.422,
-   "object": "Wall"
+   "height": 5.093,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 0.55,
    "Y": 4.198,
-   "object": "QuarterArc80"
+   "height": 5.403,
+   "object": "QuarterArc80",
+   "width": 0.2
   },
   {
    "X": 8.121,
@@ -326,22 +351,30 @@
   {
    "X": 3.308,
    "Y": 5.655,
-   "object": "RightRamp"
+   "height": 0.705502,
+   "object": "RightRamp",
+   "width": 0.848975
   },
   {
    "X": 4.13,
    "Y": 3.973,
-   "object": "RightRamp"
+   "height": 0.705502,
+   "object": "RightRamp",
+   "width": 0.848975
   },
   {
    "X": 2.711,
    "Y": 4.024,
-   "object": "RightRamp"
+   "height": 0.705502,
+   "object": "RightRamp",
+   "width": 0.848975
   },
   {
    "X": 1.423,
    "Y": 0.479,
-   "object": "LeftRamp"
+   "height": 0.478965,
+   "object": "LeftRamp",
+   "width": 1.42287
   }
  ],
  "finished/bouncing_balls.xml": [
@@ -427,7 +460,9 @@
   {
    "X": 0.802,
    "Y": 2.134,
-   "object": "LeftRamp"
+   "height": 1.0,
+   "object": "LeftRamp",
+   "width": 1.0
   },
   {
    "X": 0.724,
@@ -443,38 +478,52 @@
    "X": 1.115,
    "Y": 0.609,
    "angle": -3.1419,
-   "object": "QuarterArc80"
+   "height": 0.404,
+   "object": "QuarterArc80",
+   "width": 0.461
   },
   {
    "X": 2.691,
    "Y": 1.716,
    "angle": -1.5007,
-   "object": "QuarterArc80"
+   "height": 0.276,
+   "object": "QuarterArc80",
+   "width": 0.356
   },
   {
    "X": 5.414,
    "Y": 0.331,
-   "object": "LeftFixedWedge"
+   "height": 0.331,
+   "object": "LeftFixedWedge",
+   "width": 0.286
   },
   {
    "X": 2.066,
    "Y": 1.466,
-   "object": "RightFixedWedge"
+   "height": 0.186,
+   "object": "RightFixedWedge",
+   "width": 0.575
   },
   {
    "X": 0.346,
    "Y": 1.382,
-   "object": "LeftFixedWedge"
+   "height": 0.696,
+   "object": "LeftFixedWedge",
+   "width": 0.653
   },
   {
    "X": 1.701,
    "Y": 0.402,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.685
   },
   {
    "X": 2.571,
    "Y": 2.332,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   }
  ],
  "finished/butterfly-on-steroids.xml": [
@@ -498,37 +547,51 @@
   {
    "X": 0.257,
    "Y": 3.495,
-   "object": "LeftRamp"
+   "height": 0.417,
+   "object": "LeftRamp",
+   "width": 0.417
   },
   {
    "X": 4.807,
    "Y": 3.579,
-   "object": "RightRamp"
+   "height": 0.417,
+   "object": "RightRamp",
+   "width": 0.417
   },
   {
    "X": 5.36,
    "Y": 2.409,
-   "object": "RightRamp"
+   "height": 0.417,
+   "object": "RightRamp",
+   "width": 0.417
   },
   {
    "X": 1.445,
    "Y": 1.705,
-   "object": "RightRamp"
+   "height": 0.275,
+   "object": "RightRamp",
+   "width": 1.392
   },
   {
    "X": 0.931,
    "Y": 0.859,
-   "object": "RightRamp"
+   "height": 0.275,
+   "object": "RightRamp",
+   "width": 1.392
   },
   {
    "X": 2.432,
    "Y": 0.939,
-   "object": "LeftRamp"
+   "height": 0.275,
+   "object": "LeftRamp",
+   "width": 1.392
   },
   {
    "X": 3.615,
    "Y": 2.268,
-   "object": "LeftRamp"
+   "height": 0.275,
+   "object": "LeftRamp",
+   "width": 1.392
   },
   {
    "X": 1.9,
@@ -629,60 +692,82 @@
   {
    "X": 5.92817,
    "Y": 0.49623,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.45661
   },
   {
    "X": 6.69061,
    "Y": 0.974182,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   },
   {
    "X": 3.46444,
    "Y": 2.25441,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.09246
   },
   {
    "X": 1.36913,
    "Y": 1.68257,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.4367
   },
   {
    "X": 2.03201,
    "Y": 1.69395,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.351351
   },
   {
    "X": 4.40156,
    "Y": 1.38336,
-   "object": "Wall"
+   "height": 1.07966,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 4.78279,
    "Y": 1.1643,
-   "object": "Wall"
+   "height": 1.21053,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 2.30114,
    "Y": 1.23826,
-   "object": "Wall"
+   "height": 0.795165,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 0.935041,
    "Y": 3.50308,
    "angle": 1.5708,
-   "object": "QuarterArc40"
+   "height": 0.789,
+   "object": "QuarterArc40",
+   "width": 0.789
   },
   {
    "X": 1.24839,
    "Y": 0.299162,
    "angle": 1.577,
-   "object": "ColaMintBottle"
+   "height": 0.5,
+   "object": "ColaMintBottle",
+   "width": 0.166
   },
   {
    "X": 4.44811,
    "Y": 0.64679,
    "angle": 4.72,
-   "object": "ColaMintBottle"
+   "height": 0.5,
+   "object": "ColaMintBottle",
+   "width": 0.166
   }
  ],
  "finished/cola_reaction.xml": [
@@ -695,12 +780,14 @@
   {
    "X": 3.995,
    "Y": 0.871,
-   "object": "Floor"
+   "object": "Floor",
+   "width": 0.471
   },
   {
    "X": 2.151,
    "Y": 1.458,
-   "object": "Floor"
+   "object": "Floor",
+   "width": 1.0
   },
   {
    "X": 1.302,
@@ -710,7 +797,8 @@
   {
    "X": 3.219,
    "Y": 3.465,
-   "object": "Floor"
+   "object": "Floor",
+   "width": 1.0
   }
  ],
  "finished/construction_yard.xml": [
@@ -799,18 +887,24 @@
    "X": 4.4,
    "Y": 4.408,
    "angle": 4.3064,
-   "object": "RotatingBar"
+   "height": 0.09,
+   "object": "RotatingBar",
+   "width": 0.75
   },
   {
    "X": 4.247,
    "Y": 3.821,
    "angle": 0.0,
-   "object": "RotatingBar"
+   "height": 0.09,
+   "object": "RotatingBar",
+   "width": 0.75
   },
   {
    "X": 0.842,
    "Y": 4.934,
-   "object": "RightFixedWedge"
+   "height": 0.311,
+   "object": "RightFixedWedge",
+   "width": 1.061
   },
   {
    "X": 0.462,
@@ -870,55 +964,73 @@
    "X": 6.35086,
    "Y": 5.32094,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 3.07184,
    "Y": 5.45045,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 4.5885,
    "Y": 6.31146,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 9.59541,
    "Y": 4.58223,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 12.5601,
    "Y": 4.84987,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 10.7754,
    "Y": 5.83092,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 10.8189,
    "Y": 1.08903,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 8.17647,
    "Y": 1.14886,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 9.29328,
    "Y": 2.01638,
    "angle": -1.5708,
-   "object": "RotatingBar"
+   "height": 0.14,
+   "object": "RotatingBar",
+   "width": 1.1
   },
   {
    "X": 7.04445,
@@ -932,49 +1044,65 @@
    "X": 1.75484,
    "Y": 0.362536,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.43433,
    "Y": 0.357194,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.76481,
    "Y": 0.876068,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.77479,
    "Y": 1.37963,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.78405,
    "Y": 1.88319,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.11702,
    "Y": 0.357194,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.81004,
    "Y": 2.38675,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   },
   {
    "X": 1.81432,
    "Y": 2.89494,
    "angle": 0.0,
-   "object": "DominoRed"
+   "height": 0.5,
+   "object": "DominoRed",
+   "width": 0.1
   }
  ],
  "finished/find-the-message.v2.xml": [
@@ -1043,12 +1171,16 @@
   {
    "X": 4.345,
    "Y": 2.821,
-   "object": "LeftRamp"
+   "height": 0.313,
+   "object": "LeftRamp",
+   "width": 1.77
   },
   {
    "X": 4.341,
    "Y": 1.926,
-   "object": "LeftRamp"
+   "height": 0.313,
+   "object": "LeftRamp",
+   "width": 1.77
   },
   {
    "X": 1.501,
@@ -1067,32 +1199,44 @@
   {
    "X": 5.613,
    "Y": 3.878,
-   "object": "LeftRamp"
+   "height": 0.272,
+   "object": "LeftRamp",
+   "width": 1.874
   },
   {
    "X": 0.802,
    "Y": 2.787,
-   "object": "RightRamp"
+   "height": 0.25,
+   "object": "RightRamp",
+   "width": 1.361
   },
   {
    "X": 0.782,
    "Y": 2.091,
-   "object": "RightRamp"
+   "height": 0.25,
+   "object": "RightRamp",
+   "width": 1.361
   },
   {
    "X": 4.424,
    "Y": 2.963,
-   "object": "RightRamp"
+   "height": 0.25,
+   "object": "RightRamp",
+   "width": 1.361
   },
   {
    "X": 2.946,
    "Y": 1.923,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.865
   },
   {
    "X": 2.77,
    "Y": 0.835,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.838
   },
   {
    "X": 0.392,
@@ -1210,7 +1354,8 @@
   {
    "X": 2.43,
    "Y": 2.257,
-   "object": "Floor"
+   "object": "Floor",
+   "width": 1.016
   },
   {
    "X": 2.202,
@@ -1327,7 +1472,8 @@
   {
    "X": 2.833,
    "Y": 2.767,
-   "object": "Floor"
+   "object": "Floor",
+   "width": 1.429
   },
   {
    "X": 3.846,
@@ -1342,12 +1488,16 @@
   {
    "X": 3.408,
    "Y": 3.055,
-   "object": "Styrofoam"
+   "height": 0.177,
+   "object": "Styrofoam",
+   "width": 0.603
   },
   {
    "X": 2.233,
    "Y": 3.055,
-   "object": "Styrofoam"
+   "height": 0.177,
+   "object": "Styrofoam",
+   "width": 0.603
   }
  ],
  "finished/pingus-1.xml": [
@@ -1386,22 +1536,30 @@
   {
    "X": 0.445,
    "Y": 1.993,
-   "object": "Wall"
+   "height": 1.028,
+   "object": "Wall",
+   "width": 0.138
   },
   {
    "X": 5.405,
    "Y": 1.871,
-   "object": "Wall"
+   "height": 0.514,
+   "object": "Wall",
+   "width": 0.138
   },
   {
    "X": 5.405,
    "Y": 0.733,
-   "object": "Wall"
+   "height": 0.514,
+   "object": "Wall",
+   "width": 0.138
   },
   {
    "X": 1.979,
    "Y": 1.18,
-   "object": "RightRamp"
+   "height": 0.479,
+   "object": "RightRamp",
+   "width": 1.0
   },
   {
    "X": 2.842,
@@ -1431,31 +1589,41 @@
    "X": 2.05542,
    "Y": 3.12142,
    "angle": -0.168758,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.68506
   },
   {
    "X": 3.96907,
    "Y": 2.37268,
    "angle": 4.55282,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   },
   {
    "X": 5.15722,
    "Y": 2.14072,
    "angle": 1.40395,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.974227
   },
   {
    "X": 3.20805,
    "Y": 1.791,
    "angle": 5.40047,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.4041
   },
   {
    "X": 4.57732,
    "Y": 2.66134,
    "angle": 6.07779,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   }
  ],
  "finished/sorting-2.xml": [
@@ -1463,13 +1631,17 @@
    "X": 2.11206,
    "Y": 2.00985,
    "angle": -0.202114,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.8466
   },
   {
    "X": 3.09299,
    "Y": 2.42918,
    "angle": 6.20932,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 5.21608
   }
  ],
  "finished/sorting-3.xml": [
@@ -1477,17 +1649,23 @@
    "X": 1.207,
    "Y": 2.018,
    "angle": -0.813,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.369
   },
   {
    "X": 4.629,
    "Y": 0.931,
-   "object": "Wall"
+   "height": 0.175,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 5.947,
    "Y": 2.163,
-   "object": "Wall"
+   "height": 2.86,
+   "object": "Wall",
+   "width": 0.2
   }
  ],
  "finished/sorting-5.xml": [
@@ -1495,97 +1673,129 @@
    "X": 10.873,
    "Y": 11.035,
    "angle": 0.006,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 16.823
   },
   {
    "X": 3.854,
    "Y": 7.577,
    "angle": 5.2193,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 8.018
   },
   {
    "X": 6.475,
    "Y": 3.216,
    "angle": 0.0,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   },
   {
    "X": 7.675,
    "Y": 3.29,
    "angle": 0.0,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 1.0
   },
   {
    "X": 5.54408,
    "Y": 1.00364,
    "angle": 0.0123,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.42918
   },
   {
    "X": 8.66206,
    "Y": 2.8961,
    "angle": 6.56937,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.69516
   },
   {
    "X": 10.1055,
    "Y": 2.73008,
    "angle": 1.57333,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.54526
   },
   {
    "X": 10.381,
    "Y": 4.55876,
    "angle": 6.1343,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.714
   },
   {
    "X": 11.5468,
    "Y": 5.13137,
    "angle": 6.17685,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 3.254
   },
   {
    "X": 15.6209,
    "Y": 1.0838,
    "angle": 9.28736,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.836599
   },
   {
    "X": 13.71,
    "Y": 3.55508,
    "angle": 12.361,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.16715
   },
   {
    "X": 12.2382,
    "Y": 2.33559,
    "angle": 1.31569,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.846
   },
   {
    "X": 17.582,
    "Y": 5.601,
    "angle": 0.2642,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 8.729
   },
   {
    "X": 15.0528,
    "Y": 2.23207,
    "angle": 4.76879,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.39986
   },
   {
    "X": 16.5073,
    "Y": 1.68327,
    "angle": -0.500927,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 2.96006
   },
   {
    "X": 19.53,
    "Y": 3.271,
    "angle": -4.6971,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 4.378
   }
  ],
  "finished/statics.xml": [
@@ -1656,42 +1866,58 @@
   {
    "X": 7.078,
    "Y": 3.683,
-   "object": "Wall"
+   "height": 7.128,
+   "object": "Wall",
+   "width": 0.1
   },
   {
    "X": 2.9,
    "Y": 5.805,
-   "object": "LeftRamp"
+   "height": 0.663,
+   "object": "LeftRamp",
+   "width": 0.694
   },
   {
    "X": 5.64,
    "Y": 3.211,
-   "object": "LeftRamp"
+   "height": 0.663,
+   "object": "LeftRamp",
+   "width": 0.694
   },
   {
    "X": 1.968,
    "Y": 4.127,
-   "object": "RightRamp"
+   "height": 0.663,
+   "object": "RightRamp",
+   "width": 0.694
   },
   {
    "X": 1.295,
    "Y": 3.357,
-   "object": "RightRamp"
+   "height": 0.663,
+   "object": "RightRamp",
+   "width": 0.694
   },
   {
    "X": 5.64,
    "Y": 3.965,
-   "object": "RightRamp"
+   "height": 0.663,
+   "object": "RightRamp",
+   "width": 0.694
   },
   {
    "X": 2.354,
    "Y": 4.952,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.25
   },
   {
    "X": 4.681,
    "Y": 3.857,
-   "object": "Floor"
+   "height": 0.1,
+   "object": "Floor",
+   "width": 0.25
   }
  ],
  "finished/the_pit.xml": [
@@ -1699,95 +1925,130 @@
    "X": 0.426,
    "Y": 5.896,
    "angle": 3.1465,
-   "object": "QuarterArc40"
+   "height": 0.664119,
+   "object": "QuarterArc40",
+   "width": 0.664119
   },
   {
    "X": 0.867,
    "Y": 3.657,
    "angle": 3.1505,
-   "object": "QuarterArc40"
+   "height": 0.664119,
+   "object": "QuarterArc40",
+   "width": 0.664119
   },
   {
    "X": 7.548,
    "Y": 4.244,
    "angle": 4.4395,
-   "object": "QuarterArc40"
+   "height": 0.664119,
+   "object": "QuarterArc40",
+   "width": 0.664119
   },
   {
    "X": 7.663,
    "Y": 2.512,
    "angle": 4.7135,
-   "object": "QuarterArc40"
+   "height": 0.664119,
+   "object": "QuarterArc40",
+   "width": 0.664119
   },
   {
    "X": 2.921,
    "Y": 5.625,
-   "object": "LeftFixedWedge"
+   "height": 0.26753,
+   "object": "LeftFixedWedge",
+   "width": 0.660195
   },
   {
    "X": 0.92,
    "Y": 0.487,
-   "object": "RightFixedWedge"
+   "height": 0.20712,
+   "object": "RightFixedWedge",
+   "width": 0.773462
   },
   {
    "X": 5.583,
    "Y": 1.535,
-   "object": "RightFixedWedge"
+   "height": 0.20712,
+   "object": "RightFixedWedge",
+   "width": 0.773462
   },
   {
    "X": 2.316,
    "Y": 1.824,
-   "object": "LeftFixedWedge"
+   "height": 0.350593,
+   "object": "LeftFixedWedge",
+   "width": 0.879181
   },
   {
    "X": 6.903,
    "Y": 1.973,
-   "object": "LeftFixedWedge"
+   "height": 0.300593,
+   "object": "LeftFixedWedge",
+   "width": 0.879181
   },
   {
    "X": 4.693,
    "Y": 1.854,
+   "height": 0.290184,
    "object": "RightFixedWedge"
   },
   {
    "X": 8.856,
    "Y": 1.508,
-   "object": "RotatingBar"
+   "height": 0.1,
+   "object": "RotatingBar",
+   "width": 2.19345
   },
   {
    "X": 8.726,
    "Y": 2.988,
-   "object": "RotatingBar"
+   "height": 0.1,
+   "object": "RotatingBar",
+   "width": 1.05327
   },
   {
    "X": 8.898,
    "Y": 3.898,
-   "object": "RotatingBar"
+   "height": 0.1,
+   "object": "RotatingBar",
+   "width": 1.05327
   },
   {
    "X": 8.676,
    "Y": 4.775,
-   "object": "RotatingBar"
+   "height": 0.1,
+   "object": "RotatingBar",
+   "width": 1.05327
   },
   {
    "X": 8.841,
    "Y": 5.723,
-   "object": "RotatingBar"
+   "height": 0.1,
+   "object": "RotatingBar",
+   "width": 1.05327
   },
   {
    "X": 4.662,
    "Y": 4.186,
-   "object": "RightRamp"
+   "height": 0.577131,
+   "object": "RightRamp",
+   "width": 0.592233
   },
   {
    "X": 1.572,
    "Y": 4.649,
-   "object": "Wall"
+   "height": 0.401,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 7.896,
    "Y": 5.121,
-   "object": "Wall"
+   "height": 0.836,
+   "object": "Wall",
+   "width": 0.2
   },
   {
    "X": 0.241,
@@ -1797,17 +2058,23 @@
   {
    "X": 2.293,
    "Y": 4.148,
-   "object": "RightFixedWedge"
+   "height": 0.09,
+   "object": "RightFixedWedge",
+   "width": 0.56
   },
   {
    "X": 3.172,
    "Y": 3.267,
-   "object": "RightFixedWedge"
+   "height": 0.09,
+   "object": "RightFixedWedge",
+   "width": 0.56
   },
   {
    "X": 5.275,
    "Y": 3.381,
-   "object": "RightFixedWedge"
+   "height": 0.09,
+   "object": "RightFixedWedge",
+   "width": 0.56
   }
  ],
  "finished/triangles.xml": [
@@ -1815,13 +2082,17 @@
    "X": 2.752,
    "Y": 2.477,
    "angle": 0.8078,
-   "object": "RightWedge"
+   "height": 1.0,
+   "object": "RightWedge",
+   "width": 1.0
   },
   {
    "X": 2.05,
    "Y": 1.721,
    "angle": -3.9121,
-   "object": "RightWedge"
+   "height": 1.0,
+   "object": "RightWedge",
+   "width": 1.0
   }
  ],
  "finished/volley_valley.xml": [
@@ -1836,44 +2107,60 @@
   {
    "X": 2.209,
    "Y": 2.469,
-   "object": "RightFixedWedge"
+   "height": 0.28,
+   "object": "RightFixedWedge",
+   "width": 0.68
   },
   {
    "X": 5.687,
    "Y": 2.442,
-   "object": "RightFixedWedge"
+   "height": 0.214,
+   "object": "RightFixedWedge",
+   "width": 1.713
   },
   {
    "X": 7.719,
    "Y": 1.78,
-   "object": "RightFixedWedge"
+   "height": 0.202,
+   "object": "RightFixedWedge",
+   "width": 1.653
   },
   {
    "X": 6.422,
    "Y": 4.034,
-   "object": "LeftFixedWedge"
+   "height": 0.28,
+   "object": "LeftFixedWedge",
+   "width": 0.68
   },
   {
    "X": 7.343,
    "Y": 3.251,
-   "object": "LeftFixedWedge"
+   "height": 0.322,
+   "object": "LeftFixedWedge",
+   "width": 0.68
   }
  ],
  "finished/whee.xml": [
   {
    "X": 4.452,
    "Y": 2.715,
-   "object": "LeftRamp"
+   "height": 0.786,
+   "object": "LeftRamp",
+   "width": 2.697
   },
   {
    "X": 3.083,
    "Y": 1.804,
-   "object": "RightRamp"
+   "height": 0.697,
+   "object": "RightRamp",
+   "width": 2.452
   },
   {
    "X": 4.075,
    "Y": 0.966,
-   "object": "LeftRamp"
+   "height": 0.695,
+   "object": "LeftRamp",
+   "width": 2.102
   }
  ],
  "needs-polish/002.xml": [
@@ -1888,55 +2175,73 @@
    "X": 4.12836,
    "Y": 3.51435,
    "angle": 0.0,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 4.12169,
    "Y": 2.71346,
    "angle": -1.5708,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 2.38643,
    "Y": 1.64561,
    "angle": -3.1416,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 1.99933,
    "Y": 3.83526,
    "angle": -3.1416,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 1.99844,
    "Y": 4.63615,
    "angle": 1.5708,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 4.12837,
    "Y": 4.92836,
    "angle": -1.5708,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   },
   {
    "X": 1.38465,
    "Y": 6.05495,
    "angle": -3.13933,
-   "object": "QuarterArc40"
+   "height": 0.4,
+   "object": "QuarterArc40",
+   "width": 0.4
   },
   {
    "X": 3.57174,
    "Y": 3.32242,
    "angle": 0.0,
-   "object": "QuarterArc40"
+   "height": 0.4,
+   "object": "QuarterArc40",
+   "width": 0.4
   },
   {
    "X": 1.99199,
    "Y": 5.55055,
    "angle": -3.1416,
-   "object": "QuarterArc80"
+   "height": 0.8,
+   "object": "QuarterArc80",
+   "width": 0.8
   }
  ],
  "needs-polish/geyser.xml": [

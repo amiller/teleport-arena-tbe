@@ -47,8 +47,8 @@ time here:
 `turn-it-around` reads as *"BowlingPin xbelow 1.8"* and *"BowlingPin xover 2.6"*, which looks
 like one pin being asked for two contradictory things. It is not: `xbelow 1.8` is
 `isFail="true"`. The level is *get the pin past x=2.6, and you lose if it goes left of 1.8*.
-`tbe.py brief` used to omit `isFail`, and that omission produced exactly this misreading in
-our own notes for weeks.
+`tbe.py brief` used to omit `isFail` and it produced exactly this misreading — see the
+correction note in `what-we-measured.md`.
 
 **Goals do not latch, and a win needs all of them at once.** `Goal` holds no state
 (`Goal.h:51-53` — one pure-virtual `checkForSuccess()` and an `isFail` flag). Every goal is
@@ -57,8 +57,8 @@ emits `signalWon` only when *every* non-fail goal is true **in the same step**; 
 coming true emits `signalDeath` immediately. So a solution has to hold all the win conditions
 simultaneously, not visit them one at a time.
 
-(If you have read that latching goals are a real bug somewhere: they are, but in a different
-scoring kernel of ours, not in TBE.)
+(The latching bug in `what-we-measured.md` findings 2 and 3 is real, but it is in Teleport
+Arena's own kernel — `levels.py:Level.score()` — not in TBE.)
 
 ## What counts as a solve
 
@@ -67,7 +67,9 @@ fail, then plays it with your parts, which must win. The only evidence of a win 
 `slot_Won` in the game's log. Two ways to get a verdict that is not a solve:
 
 - **COPIED** — your placements match the level author's own answer key. The keys are stripped
-  out of the level files at setup for this reason. Transcribing one is not solving it.
+  out of the level files at setup so the answer does not arrive alongside the question.
+  That is hygiene rather than a lock: the answers exist upstream and pass through this
+  machine during setup. Transcribing one is not solving it, and the record says so.
 - **A part overlapping something already in the scene.** Box2D ejects an overlapping body
   violently at t=0 and the referee cannot tell that explosion from a mechanism. Check your
   placement against the scene geometry in `brief` before running it.
@@ -86,12 +88,25 @@ time to be told "NOT SOLVED", which reads exactly like a mechanism that did not 
 For a polygon part (a ramp, a wedge) the check reports a bounding-box touch as a maybe
 rather than a refusal: the shape is smaller than its box, so a touch is often fine.
 
+## You can resize a part
+
+    LeftRamp@4.452,2.715,0,2.697x0.786
+
+A placement is `Part@X,Y`, optionally an angle, optionally a size. **The size is part of the
+solution language, not a detail**: 155 placements across the level set resize a part, and
+several levels cannot be solved without it. A ramp stretched to 2.7 wide is a different
+mechanism from the default one, not the same mechanism nudged.
+
+This was missing until it was measured: 13 of the 16 levels whose own author solution failed
+to win were failing only because the harness dropped the size and placed a default-sized
+part instead. Six of them win now.
+
 ## The loop
 
     tbe.py brief <level>                     read the scene, the toolbox, the goals
     tbe.py check <level> Part@X,Y            before every solve; it is free
     parts.py                                 look up anything you are about to place
-    tbe.py solve <level> Part@X,Y[,angle]    adjudicate a candidate
+    tbe.py solve <level> Part@X,Y[,angle][,WxH]   adjudicate a candidate
     tbe.py trace <level>                     after a failure, read what actually moved
 
 Read `trace` after every failure rather than guessing again. The runs are fast — the

@@ -81,7 +81,13 @@ def cmd_strip():
             for k, v in re.findall(r'(\w+)="([^"]*)"', tag):
                 a.setdefault(k, v)
             hints.append({"object": a["object"], "X": float(a["X"]), "Y": float(a["Y"]),
-                          **({"angle": float(a["angle"])} if "angle" in a else {})})
+                          # width/height resize the part, and 155 hints across the level set
+                          # use them. Dropping them silently placed a default-sized part and
+                          # the author's own solution then lost -- 13 of the 16 levels whose
+                          # key "did not win" were this.
+                          **({"angle": float(a["angle"])} if "angle" in a else {}),
+                          **({"width": float(a["width"])} if "width" in a else {}),
+                          **({"height": float(a["height"])} if "height" in a else {})})
         found[f] = (hints, src[:block.start()] + src[block.end():])
     # Persist every key before editing any level: a crash partway through the rewrite
     # would otherwise destroy the answers it had already removed.
@@ -196,11 +202,13 @@ def cmd_check(level, places):
     boxes = _scene_boxes(level)
     bad = False
     for spec in places:
-        m = re.fullmatch(r"([A-Za-z][A-Za-z0-9]*)@(-?[\d.]+),(-?[\d.]+)(?:,(-?[\d.]+))?", spec)
+        m = PLACEMENT.fullmatch(spec)
         if not m:
-            sys.exit(f"bad placement {spec!r}")
+            sys.exit(f"bad placement {spec!r}; want Part@X,Y[,angle][,WxH]")
         part, x, y = m.group(1), float(m.group(2)), float(m.group(3))
         w, h, kind = _part_size(part)
+        if m.group(5) is not None:                 # the placement resizes it
+            w, h = float(m.group(5)), float(m.group(6))
         l, r_, b, t = x - w / 2, x + w / 2, y - h / 2, y + h / 2
         hits = []
         for name, bl, br, bb, bt in boxes:
@@ -237,15 +245,44 @@ def cmd_check(level, places):
     return bad
 
 
+# Part@X,Y, optionally an angle, optionally a size. Several levels can only be solved by
+# resizing a ramp, so the size is part of the language rather than an extra.
+PLACEMENT = re.compile(r"([A-Za-z][A-Za-z0-9]*)@(-?[\d.]+),(-?[\d.]+)"
+                       r"(?:,(-?[\d.]+))?(?:,([\d.]+)x([\d.]+))?")
+
+
+def key_to_places(hints):
+    """Turn an answer-key entry into placement strings.
+
+    Not every resizing hint sets both dimensions -- there are 155 width= and 150 height=
+    across the level set -- so the missing one comes from the part's own default rather than
+    being dropped, which would resize the part in one axis only and change the solution."""
+    out = []
+    for h in hints:
+        spec = f"{h['object']}@{h['X']},{h['Y']}"
+        if "angle" in h or "width" in h or "height" in h:
+            spec += f",{h.get('angle', 0)}"
+        if "width" in h or "height" in h:
+            dw, dh, _ = _part_size(h["object"])
+            spec += f",{h.get('width', dw)}x{h.get('height', dh)}"
+        out.append(spec)
+    return out
+
+
 def _hints_xml(places):
     rows = []
     for i, spec in enumerate(places, 1):
-        m = re.fullmatch(r"([A-Za-z][A-Za-z0-9]*)@(-?[\d.]+),(-?[\d.]+)(?:,(-?[\d.]+))?", spec)
+        m = PLACEMENT.fullmatch(spec)
         if not m:
-            sys.exit(f"bad placement {spec!r}; want Part@X,Y[,angle] e.g. Skyhook@2.5,1.98 or Floor@2.5,1.98,-0.6")
+            sys.exit(f"bad placement {spec!r}; want Part@X,Y[,angle][,WxH] -- e.g. "
+                     f"Skyhook@2.5,1.98 or Floor@2.5,1.98,-0.6 or LeftRamp@4.45,2.72,0,2.7x0.79")
         part, x, y = m.group(1), float(m.group(2)), float(m.group(3))
         angle = f' angle="{float(m.group(4)):.4f}"' if m.group(4) is not None else ""
-        rows.append(f'        <hint number="{i}" object="{part}" X="{x:.3f}" Y="{y:.3f}"{angle} />')
+        size = ""
+        if m.group(5) is not None:
+            size = f' width="{float(m.group(5)):.3f}" height="{float(m.group(6)):.3f}"'
+        rows.append(f'        <hint number="{i}" object="{part}" X="{x:.3f}" Y="{y:.3f}"'
+                    f'{angle}{size} />')
     return "    <hints>\n" + "\n".join(rows) + "\n    </hints>"
 
 
@@ -317,6 +354,24 @@ def cmd_frame(level, at="0.75"):
     print(f"{png}   ({secs:.1f}s into {vid.name})")
 
 
+def _oid(raw, t, state):
+    """A stable name for a traced object.
+
+    Most objects in a level carry no id -- only the ones a goal refers to are named. Keyed on
+    the id alone, every floor, ramp, chest and the part you placed shared the empty string
+    and collapsed into one row, reporting one object's start against another's end. Keying an
+    unnamed body on its position instead splits it into a new object every time it moves.
+
+    The trace walks the world's object list in the same order every tick, so the position
+    within a tick is the identity. It shifts if objects are created or destroyed mid-run --
+    an explosion, say -- which is a limitation worth knowing rather than a reason not to."""
+    raw = (raw or "").strip()
+    if t != state.get("t"):
+        state["t"], state["i"] = t, 0
+    state["i"] += 1
+    return raw or f"unnamed#{state['i']}"
+
+
 def cmd_where(level, ids=None):
     """The path an object took, moment by moment, out of the simulation.
 
@@ -329,17 +384,21 @@ def cmd_where(level, ids=None):
     log = OUT / f"{pathlib.Path(level).stem}_claude.log"
     if not log.exists():
         sys.exit(f"no log yet for {level}; run solve first")
-    paths = {}
+    paths, seen_at = {}, {}
     for line in log.read_text(errors="replace").splitlines():
-        m = re.search(r"TRACE t=([\d.]+) id=(\S+) type=\S+ pos=\(([-\d.]+),([-\d.]+)\) "
+        # id and type can both contain spaces -- levels name objects things like "the Pin".
+        # A \S+ here silently captured "the", so trace and where returned nothing at all on
+        # any level with a spaced id, which is most of the interesting ones.
+        m = re.search(r"TRACE t=([\d.]+) id=(.*?) type=.*? pos=\(([-\d.]+),([-\d.]+)\) "
                       r"angle=([-\d.]+)", line)
         if not m:
             continue
-        oid = m.group(2)
+        t, x, y, a = (float(m.group(1)), float(m.group(3)),
+                      float(m.group(4)), float(m.group(5)))
+        oid = _oid(m.group(2), t, seen_at)
         if ids and oid not in ids:
             continue
-        paths.setdefault(oid, []).append(
-            (float(m.group(1)), float(m.group(3)), float(m.group(4)), float(m.group(5))))
+        paths.setdefault(oid, []).append((t, x, y, a))
     if not paths:
         sys.exit(f"no trace rows{' for ' + ', '.join(ids) if ids else ''} in {log.name}")
     for oid, rows in sorted(paths.items()):
@@ -367,15 +426,16 @@ def cmd_trace(level, ids=None):
     log = OUT / f"{pathlib.Path(level).stem}_claude.log"
     if not log.exists():
         sys.exit(f"no log yet for {level}; run solve first")
-    seen = {}
+    seen, seen_at = {}, {}
     for line in log.read_text(errors="replace").splitlines():
-        m = re.search(r"TRACE t=([\d.]+) id=(\S+) type=\S+ pos=\(([-\d.]+),([-\d.]+)\) angle=([-\d.]+)", line)
+        m = re.search(r"TRACE t=([\d.]+) id=(.*?) type=.*? pos=\(([-\d.]+),([-\d.]+)\) angle=([-\d.]+)", line)
         if not m:
             continue
-        t, oid = float(m.group(1)), m.group(2)
+        t = float(m.group(1))
+        x, y, a = float(m.group(3)), float(m.group(4)), float(m.group(5))
+        oid = _oid(m.group(2), t, seen_at)
         if ids and oid not in ids:
             continue
-        x, y, a = float(m.group(3)), float(m.group(4)), float(m.group(5))
         first, _ = seen.get(oid, (None, None))
         seen[oid] = (first if first is not None else (t, x, y, a), (t, x, y, a))
     print(f"{'object':<14s} {'start (x,y,angle)':<28s} {'end (x,y,angle)':<28s} moved")
@@ -476,9 +536,17 @@ def _check_parts(level, places):
 
 
 def _matches_author_key(level, places, tol=0.05):
-    """Every level ships the author's solution in its own <hints> block, so a solver with
-    shell access can win by transcribing it. A win that lands on the key within a rounding
-    tolerance is a copy, not a solve."""
+    """A win that lands on the author's own placements is a transcription, not a solve.
+
+    This is hygiene, not a control, and it is worth being clear about which. Stripping the
+    hints stops the answer arriving unbidden alongside the level you were asked to solve.
+    It cannot stop an agent that goes looking: `setup` clones the game with the hints still
+    in it, so the answers pass through the agent's own machine, and failing that the
+    upstream repository is public. Any adjudication that has to survive a motivated player
+    belongs on a referee the player does not control -- see the hosting/attestation issue.
+
+    Checked to date across all 22 recorded agent sessions: 50 incidental mentions of the key
+    file (setup output, directory listings, a source line) and zero reads of its contents."""
     key = [(h["object"], h["X"], h["Y"])
            for h in json.loads(KEYS.read_text()).get(str(level), [])]
     if len(key) != len(places):

@@ -37,11 +37,15 @@ HERE = pathlib.Path(__file__).resolve().parent
 OUT = HERE / "out"
 ZLOGS = HERE / "zlogs"
 AGENT = OUT / "agent.json"
-PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8765
-# Where to listen, and where the remote players live. All three are environment
-# variables because they are entirely site-specific: BIND=127.0.0.1 keeps the page local,
-# and REMOTE only matters if you run agents on another machine. With no REMOTE set the
-# dashboard still shows every local run.
+# Only if it looks like a port. This is read at import time, so any other module that
+# imports the dashboard for its prompt or its attempt parsing used to crash on whatever
+# flags that module happened to be passed -- which is how the overnight loop died on
+# startup with "invalid literal for int(): --levels".
+PORT = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 8765
+# Where to listen, and where the remote players live. All three are environment variables
+# because they are entirely site-specific: BIND=127.0.0.1 keeps the page local, and REMOTE
+# only matters if you run agents on another machine. With no REMOTE set, every local run
+# still shows up.
 BIND = os.environ.get("BIND", "127.0.0.1")
 ZED = os.environ.get("REMOTE", "")            # ssh host running the agents, or "" for none
 REPO_ON_ZED = os.environ.get("REMOTE_REPO", "~/teleport-arena-tbe")
@@ -968,8 +972,7 @@ def recorder():
             continue
         lv = todo[0]
         keys = json.loads(tbe.KEYS.read_text())
-        places = [f"{h['object']}@{h['X']},{h['Y']}"
-                  + (f",{h['angle']}" if "angle" in h else "") for h in keys[lv]]
+        places = tbe.key_to_places(keys[lv])
         stem = recorder.doing = pathlib.Path(lv).stem
         vid = OUT / f"{stem}_author.mp4"
         try:
