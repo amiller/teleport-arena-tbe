@@ -1,19 +1,15 @@
 #!/bin/bash
-# Pull what the remote agents are doing, so the dashboard can show them PLAYING and not
-# just their verdicts. Each worktree's container writes out/live.png once a second while an
+# Pull what the zed agents are doing, so the dashboard can show them PLAYING and not just
+# their verdicts. Each worktree's container writes out/live.png once a second while an
 # attempt runs; that frame is the whole point, so it is polled hard and the logs are not.
 #
-# Use the shortest path you have to the box: measured here, a direct route was ~150ms a
-# call against ~370ms through a tunnel, and this runs every few seconds. rsync -t keeps the
-# remote mtime, which is how the dashboard tells a live frame from one left behind by an
-# attempt that ended hours ago.
+# Use the shortest network path you have: measured here, a direct route was ~150ms a call
+# against ~370ms through a tunnel, and this runs every few seconds. rsync -t keeps the remote
+# mtime, which is how the dashboard tells a live frame from one left behind hours ago.
 OUT="$(cd "$(dirname "$0")" && pwd)/out"
 ZLOGS="$(dirname "$OUT")/zlogs"
-# The machine running the agents, and where their working copies live. Site-specific:
-# ours are paseo worktrees on another box reached over a private overlay, but anything with
-# the same layout works. Set REMOTE to an ssh host; unset, this script has nothing to do.
 HOST="${REMOTE:?set REMOTE to the ssh host running the agents}"
-ROOT="${REMOTE_WORKTREES:-~/worktrees}"
+ROOT='~/.paseo/worktrees'
 mkdir -p "$OUT" "$ZLOGS"
 # --once does a single pass and exits: the dashboard drives it on a thread so there is no
 # separate loop to remember to start, and no way for it to die quietly while the page goes
@@ -42,6 +38,10 @@ while true; do
       # Every attempt an agent has ever made, not just its latest. tbe.py keeps each one
       # under archive/ with its own timestamp; they are ~150kB apiece and they are the only
       # record of what the agent tried before it got there.
+      # The level health sweep lives in the main checkout, not a worktree, and the viewer
+      # needs it to know which levels are worth handing out.
+      rsync -qt "$HOST:$REMOTE_MAIN/playtest/harness/out/level-health.json" \
+            "$OUT/level-health.json" 2>/dev/null
       mkdir -p "$OUT/archive"
       rsync -qrt --ignore-existing "$HOST:$d/archive/" "$OUT/archive/" 2>/dev/null
     fi

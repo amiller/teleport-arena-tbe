@@ -71,13 +71,16 @@ h1{font-size:26px;letter-spacing:-.025em;margin:0;font-weight:800}
 */
 .shot{overflow:hidden;aspect-ratio:602/406;border:1.5px solid var(--rule);border-radius:3px;
       background:#000;display:flex;align-items:center}
-.shot img.live,.shot video{width:100%;display:block;border:none;border-radius:0;position:static}
+.shot img.live,.shot video,.shot img.thumb{width:100%;display:block;border:none;
+  border-radius:0;position:static}
+.shot img.thumb{aspect-ratio:602/406;object-fit:cover}
 .player.stale img.live{opacity:.4;filter:grayscale(1)}
 .age{font:11px ui-monospace,Menlo,monospace;color:var(--dim)}
 .age.on{color:var(--live)}
 .console{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
 .console select{flex:1;min-width:210px;padding:7px 8px;border:1.5px solid var(--rule);
   border-radius:3px;background:var(--ground);color:var(--ink);font:13px ui-monospace,Menlo,monospace}
+#playbtn{background:var(--win);border-color:var(--win);color:#fff}
 .console button{padding:8px 15px;border:1.5px solid var(--ink);border-radius:3px;
   background:var(--ink);color:var(--ground);font:700 12px ui-monospace,Menlo,monospace;cursor:pointer}
 .console button.ghost{background:transparent;color:var(--ink)}
@@ -208,10 +211,13 @@ details.more[open] summary{margin-bottom:13px}
   <div id="spend">&hellip;</div>
 </div>
 
-<div class="panel"><h2>Footage &mdash; click one to play it above</h2>%GALLERY%</div>
+<div class="panel"><h2>Highlights &mdash; every level an agent has solved</h2>%HIGHLIGHTS%</div>
+<div class="panel"><h2>Everything else &mdash; click one to play it above</h2>%GALLERY%</div>
 
 <div class="panel"><h2>Console</h2>
   <div class="console">
+    <button id="playbtn" onclick="play()" title="picks an unsolved level and works on it for ten minutes">
+      &#9654;&nbsp; Play a round</button>
     <select id="lvl">%LEVELS%</select>
     <select id="prov"><option value="zai">zai / glm-5.2 (blind)</option>
       <option value="claude">claude (can see)</option></select>
@@ -221,6 +227,7 @@ details.more[open] summary{margin-bottom:13px}
   </div>
   <div id="agent">&hellip;</div>
   <div id="rec">&hellip;</div>
+
 </div>
 
 <details class="panel"><summary>Every player &mdash; who is running, who is idle</summary>
@@ -274,6 +281,8 @@ function start(){const s=document.getElementById('lvl');
   post('/start','level='+encodeURIComponent(s.value)
     +'&provider='+encodeURIComponent(document.getElementById('prov').value));}
 function stop(){document.getElementById('agent').textContent='stopping…';post('/stop','');}
+function play(){document.getElementById('agent').textContent='picking a puzzle…';
+  post('/play','minutes=10');}
 // Keep the recorder alive only while somebody is actually at the page: a visible tab plus
 // real input. A tab left open on another desktop should let it wind down.
 let jogged = 0;
@@ -793,6 +802,47 @@ def already_tried(level, limit=60):
             "rather than nudging.\n")
 
 
+def playable_unsolved():
+    """Levels worth handing out: the health sweep says playable, and nobody has solved them."""
+    hf = OUT / "level-health.json"
+    health = json.loads(hf.read_text()) if hf.exists() else {}
+    done = {pathlib.Path(r["level"]).stem for r in attempts()
+            if r.get("verdict") in ("SOLVED", "COPIED")}
+    return [lv for lv, h in sorted(health.items())
+            if h.get("verdict") == "SOLVED" and pathlib.Path(lv).stem not in done]
+
+
+def play_round(minutes=10, provider="claude"):
+    """Spend a bounded amount of time on one unsolved puzzle, then stop.
+
+    The console used to offer "start an agent", which runs until it decides to stop -- and one
+    of them made 118 attempts over 42 minutes. This is the middle setting: one click, one
+    level chosen for you from the ones known playable, and a hard stop. Watching should not
+    require deciding what to watch, and it should not cost an open-ended amount."""
+    todo = playable_unsolved()
+    if not todo:
+        return {"error": "nothing playable left unsolved -- re-run the health sweep"}
+    a = start_agent(todo[0], provider)
+    if "error" in a:
+        return a
+    play_round.until = time.time() + minutes * 60
+    play_round.level = pathlib.Path(todo[0]).stem
+    threading.Thread(target=_stop_after, args=(a["id"], play_round.until), daemon=True).start()
+    return a
+
+
+play_round.until, play_round.level = 0.0, ""
+
+
+def _stop_after(agent_id, until):
+    while time.time() < until:
+        time.sleep(15)
+        if not AGENT.exists() or json.loads(AGENT.read_text()).get("id") != agent_id:
+            return                                   # superseded by another run
+    zed("stop", agent_id)
+    play_round.until = 0.0
+
+
 def start_agent(level, provider="zai"):
     stem = pathlib.Path(level).stem
     prov, model, vision = PROVIDERS[provider]
@@ -830,6 +880,31 @@ def start_agent(level, provider="zai"):
     return a
 
 
+def tell_agent(agent_id, text):
+    """Say something to the agent that is running, right now, mid-level.
+
+    This is the half of watching that was missing. You could see an agent placing a ball
+    inside the floor and have no way to tell it so -- the observation had to be carried by
+    hand into the playbook and would only reach the NEXT agent. paseo's send continues an
+    existing session with its context intact, so this arrives as a message in the run it is
+    about."""
+    # Fire and forget. `paseo send` blocks until the agent has finished responding, which
+    # for a working agent is minutes -- the browser waited 120s and got a timeout instead of
+    # an acknowledgement. The message is delivered either way, so hand it off and say so.
+    cmd = ('export NVM_DIR=$HOME/.nvm; . $NVM_DIR/nvm.sh; nohup paseo send '
+           '--host "$(cat ~/.paseo/cli-host)" ' + shlex.quote(agent_id) + " "
+           + shlex.quote(text) + " >/dev/null 2>&1 &")
+    r = subprocess.run(["ssh", "-o", "BatchMode=yes", ZED, cmd],
+                       capture_output=True, text=True, timeout=30)
+    if r.returncode != 0:
+        return f'<span class="err">{html.escape((r.stderr or r.stdout).strip()[:200])}</span>'
+    tell_agent.log.append((time.time(), text))
+    return f"sent &rarr; {html.escape(text[:110])}"
+
+
+tell_agent.log = []
+
+
 def agent_status():
     """The console's agent as paseo currently sees it. Each call is an ssh, so it is cached
     for a few seconds -- the page polls this every 5s and the frames every 1s."""
@@ -856,7 +931,9 @@ def agent_html():
     err = f'<div class="err">{html.escape(a["error"])}</div>' if a.get("error") else ""
     return (f'<b>{html.escape(pathlib.Path(a["level"]).stem)}</b> &middot; '
             f'{html.escape(a["status"])} &middot; worktree {html.escape(a["worktree"])} '
-            f'&middot; started {html.escape(a["started"])} &middot; {html.escape(a["id"][:7])}{err}')
+            f'&middot; started {html.escape(a["started"])} &middot; {html.escape(a["id"][:7])}'
+            + (f' &middot; <b>{int((play_round.until - time.time()) // 60) + 1}m left in this '
+               f'round</b>' if play_round.until > time.time() else "") + err)
 
 
 def black_fraction(path):
@@ -1021,6 +1098,33 @@ def level_stems():
     return {p.stem for p in d.rglob("*.xml")} if d.is_dir() else set()
 
 
+THUMBS = OUT / "thumbs"
+
+
+def thumb_for(clip):
+    """A small still per clip, made once, so the grid is images and not media players.
+
+    The grid used to render a <video preload="metadata"> per clip. At 192 clips that is 192
+    media elements fetching headers at once, which crashes the tab. One 320px JPEG each is a
+    few kB and the browser can lazy-load it like any other image."""
+    THUMBS.mkdir(exist_ok=True)
+    src = OUT / clip
+    dst = THUMBS / (pathlib.Path(clip).stem + ".jpg")
+    if dst.exists() and dst.stat().st_mtime >= src.stat().st_mtime:
+        return dst.name
+    try:
+        dur = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                              "-of", "csv=p=0", str(src)],
+                             capture_output=True, text=True, timeout=60).stdout.strip()
+        at = max(0.0, float(dur) * 0.75) if dur else 1.0
+        subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{at}", "-i", str(src),
+                        "-frames:v", "1", "-vf", "scale=320:-1", "-q:v", "6", "-y", str(dst)],
+                       capture_output=True, timeout=90)
+    except Exception:
+        return ""
+    return dst.name if dst.exists() else ""
+
+
 def footage():
     """Every clip that belongs to a level, newest first, and what it actually is.
 
@@ -1054,6 +1158,7 @@ def footage():
                     "when": ago(time.time() - p.stat().st_mtime),
                     "age": time.time() - p.stat().st_mtime,
                     "places": " ".join(r.get("places", [])),
+                    "thumb": thumb_for(rel),
                 })
             continue
         size = p.stat().st_size
@@ -1096,8 +1201,25 @@ def footage():
             "badge": badge, "quiet": size < 70_000,   # a 20s clip this small barely moves
             "when": ago(time.time() - p.stat().st_mtime),
             "age": time.time() - p.stat().st_mtime, "places": "",
+            "thumb": thumb_for(rel),
         })
     return clips
+
+
+def highlights_html(clips=None):
+    """The wins, one per level, newest first.
+
+    The point of keeping every attempt is that failures are evidence. The point of a
+    highlights row is that you should not have to scroll 880 failures to find the eight
+    things that worked."""
+    clips = footage() if clips is None else clips
+    best = {}
+    for c in clips:
+        if c["badge"] == "SOLVED" and c["title"] not in best:
+            best[c["title"]] = c
+    if not best:
+        return '<p class="empty">Nothing solved yet.</p>'
+    return _cards(list(best.values()))
 
 
 def footage_html(clips=None):
@@ -1111,7 +1233,13 @@ def footage_html(clips=None):
         return '<p class="empty">No footage yet.</p>'
     agent = [c for c in clips if c["badge"] != "AUTHOR"]
     author = [c for c in clips if c["badge"] == "AUTHOR"]
-    out = _cards(agent) if agent else '<p class="empty">No agent attempts recorded yet.</p>'
+    # 881 clips is a wall, not a gallery. Show the newest and fold the rest into a details;
+    # a closed details never fetches the lazy images inside it.
+    head, rest = agent[:36], agent[36:]
+    out = _cards(head) if head else '<p class="empty">No agent attempts recorded yet.</p>'
+    if rest:
+        out += (f'<details class="more"><summary>{len(rest)} older attempts</summary>'
+                f'{_cards(rest)}</details>')
     if author:
         out += (f'<details class="more"><summary>and {len(author)} author contraptions '
                 f'&mdash; the level designers\' own solutions, recorded so there is always '
@@ -1133,8 +1261,14 @@ def _cards(clips):
             f'\'{html.escape(c["title"])}\')">'
             f'<span class="v {cls}">{html.escape(c["badge"])}</span>{fresh}'
             f'<span class="hit"></span>'
-            f'<div class="shot"><video src="/{c["file"]}" loop muted playsinline preload="metadata" '
-            f'onloadedmetadata="this.currentTime=this.duration*0.75"></video></div>'
+            # A still, not a media element. At 881 clips a <video> per card is 881 players
+            # fetching headers at once, which crashes the tab. These are lazy images the
+            # browser skips entirely while their <details> is closed.
+            + f'<div class="shot">'
+            + (f'<img class="thumb" loading="lazy" decoding="async" '
+               f'src="/thumbs/{c["thumb"]}" alt="{html.escape(c["title"])}">'
+               if c.get("thumb") else '<div class="norec">no still</div>')
+            + '</div>'
             f'<figcaption><span class="cardname">{html.escape(c["title"])}</span>'
             f'<span class="cardpl">{html.escape(c["who"])} &middot; {c["kind"]} '
             f'&middot; {c["when"]}'
@@ -1219,6 +1353,7 @@ def render(pick=None):
             .replace("%ATTEMPTS%", att).replace("%STATS%", stats)
             .replace("%STAGESRC%", src).replace("%RACE%", race_html()).replace("%STAGETITLE%", html.escape(title))
             .replace("</style>", f".stage {stage}</style>")
+            .replace("%HIGHLIGHTS%", highlights_html(clips))
             .replace("%GALLERY%", footage_html(clips)))
 
 
@@ -1257,8 +1392,8 @@ class H(BaseHTTPRequestHandler):
             tok = str(sum(g.stat().st_mtime for g in OUT.glob("attempts*.jsonl")))
             return self._send(tok.encode(), "text/plain")
         f = OUT / path
-        if f.is_file() and f.parent in (OUT, OUT / "archive"):
-            mime = {"png": "image/png", "mp4": "video/mp4"}.get(f.suffix.lstrip("."), "application/octet-stream")
+        if f.is_file() and f.parent in (OUT, OUT / "archive", THUMBS):
+            mime = {"png": "image/png", "mp4": "video/mp4", "jpg": "image/jpeg"}.get(f.suffix.lstrip("."), "application/octet-stream")
             return self._send(f.read_bytes(), mime)
         self.send_error(404)
 
@@ -1269,6 +1404,11 @@ class H(BaseHTTPRequestHandler):
         jog()                        # anything you do here counts as watching
         if path == "jog":
             return self._send(recorder_html().encode(), "text/html; charset=utf-8")
+        if path == "play":
+            a = play_round(minutes=int((form.get("minutes") or ["10"])[0]))
+            body = (f'<div class="err">{html.escape(a["error"])}</div>' if "error" in a
+                    else agent_html())
+            return self._send(body.encode(), "text/html; charset=utf-8")
         if path == "start":
             level = (form.get("level") or [""])[0]
             if not level:
@@ -1276,6 +1416,15 @@ class H(BaseHTTPRequestHandler):
             a = start_agent(level, (form.get("provider") or ["zai"])[0])
             body = (f'<div class="err">{html.escape(a["error"])}</div>' if "error" in a
                     else agent_html())
+            return self._send(body.encode(), "text/html; charset=utf-8")
+        if path == "say":
+            text = (form.get("text") or [""])[0].strip()
+            if not text:
+                return self._send(b"nothing to say", "text/html; charset=utf-8")
+            if not AGENT.exists():
+                return self._send(b"no agent running to tell", "text/html; charset=utf-8")
+            a = json.loads(AGENT.read_text())
+            body = tell_agent(a["id"], text)
             return self._send(body.encode(), "text/html; charset=utf-8")
         if path == "stop":
             if not AGENT.exists():
