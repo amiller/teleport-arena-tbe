@@ -3,8 +3,11 @@ FROM tbe-dbg-wm
 #  - GOALCHK: what each position goal sees against its limit
 #  - TRACE:   every object's id, position and angle, twice a second
 # And run it at the speed the physics allows rather than the speed a person reads at:
-#  - fast-sim: regression runs play at "real fast", and the driver's waits divide to match
-COPY tbe-derived/goal-feedback.patch tbe-derived/world-trace.patch tbe-derived/fast-sim.patch /tmp/
+#  - fast-sim:   regression runs play at "real fast" and step a fixed amount per tick
+#  - sim-budget: a level's budget is counted in simulated seconds rather than in wall ones,
+#                so the same placement gets the same verdict on a loaded box as an idle one
+COPY tbe-derived/goal-feedback.patch tbe-derived/world-trace.patch tbe-derived/fast-sim.patch \
+     tbe-derived/sim-budget.patch /tmp/
 RUN cd /src/tbe && patch -p1 < /tmp/goal-feedback.patch && patch -p1 < /tmp/world-trace.patch \
- && patch -p1 < /tmp/fast-sim.patch \
+ && patch -p1 < /tmp/fast-sim.patch && patch -p1 < /tmp/sim-budget.patch \
  && cd build && make -j"$(nproc)" 2>&1 | tail -8 && make install

@@ -36,10 +36,25 @@ if [ -n "${RECORD:-}" ]; then
 fi
 # Exit as soon as the referee has ruled, instead of always waiting out a fixed sleep.
 # The state machine prints Regression Successful when it finishes the level list.
+#
+# DUR is a watchdog and not the budget: the level now ends after BUDGET *simulated* seconds
+# (sim-budget.patch), so this only bounds a game that has stopped making progress.
+#
+# A game can stop without dying. little_balloon_puzzle freezes in 'Start Level to Win' --
+# the trace stops mid-level, the process stays alive, and nothing more is ever written. That
+# is a third outcome, and calling it CRASHED would say the process died when it did not, or
+# NOT SOLVED would say the referee ruled when it never did. Watch the log for silence.
+STALL=0
+SIZE=0
 DEADLINE=$(( $(date +%s) + ${DUR:-70} ))
 while [ "$(date +%s)" -lt "$DEADLINE" ]; do
   if grep -q "Regression Successful" "/out/$NAME.log" 2>/dev/null; then sleep 1; break; fi
   if ! kill -0 $GAME 2>/dev/null; then break; fi
+  NOW=$(stat -c%s "/out/$NAME.log" 2>/dev/null || echo 0)
+  if [ "$NOW" -eq "$SIZE" ]; then STALL=$((STALL + 1)); else STALL=0; SIZE=$NOW; fi
+  # Every state the machine passes through logs, and a running level traces twice a
+  # simulated second, so 20 quiet seconds is not a slow moment.
+  if [ "$STALL" -ge 20 ]; then STALLED=1; break; fi
   sleep 1
 done
 kill $GAME 2>/dev/null
@@ -61,6 +76,11 @@ fi
 # any check runs -- it appears whether or not the level was won. The only real signal is
 # slot_Won, emitted by RegressionTest when the game actually raises its won event.
 WON=$(grep -c "AUTOMATED TESTING, slot_Won" "/out/$NAME.log")
+# Neither is a hang. Winning still counts if it happened before the freeze.
+if [ "$WON" -lt 1 ] && [ -n "${STALLED:-}" ]; then
+  echo "VERDICT      : STALLED (the game stopped stepping and never ruled; not your mechanism)"
+  exit 0
+fi
 # A crash is not a verdict. brother-plays-soccer segfaults the game on some placements --
 # on the unpatched build too, so this is the game and not the harness -- and reporting that
 # as NOT SOLVED told an agent its mechanism was wrong when the referee never ran. One agent

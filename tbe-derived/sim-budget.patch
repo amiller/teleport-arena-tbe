@@ -1,0 +1,122 @@
+--- a/src/view/ViewWorld.h	2026-08-16 11:44:28.729994862 -0400
++++ b/src/view/ViewWorld.h	2026-08-16 11:44:51.839081965 -0400
+@@ -70,6 +70,12 @@
+     ///        more frames than this per second. No guarantees.
+     static const int MAX_FPS;
+ 
++    /// Simulated seconds run so far in this regression session, accumulated by the
++    /// regression branch of on_timerTick. The adjudicator waits on THIS and not on a wall
++    /// clock: how much physics a wall second buys depends on how busy the machine is, and
++    /// a level cut short reports a working solution as a failure.
++    static qreal theRegressionSimTime;
++
+ signals:
+     void needReset();
+     void needPause();
+--- a/src/view/ViewWorld.cpp	2026-08-16 11:44:28.734994880 -0400
++++ b/src/view/ViewWorld.cpp	2026-08-16 11:44:51.839081965 -0400
+@@ -34,6 +34,7 @@
+ static bool isSimRunning = false;
+ 
+ const int ViewWorld::MAX_FPS = 60;
++qreal ViewWorld::theRegressionSimTime = 0.0;
+ 
+ ViewWorld::ViewWorld (ResizingGraphicsView *aGraphicsViewPtr, World *aWorldPtr)
+     : QGraphicsScene(0, -THESCALE * aWorldPtr->getTheWorldHeight(),
+@@ -105,7 +106,7 @@
+     // makes the amount of physics a function of ticks rather than of how busy the machine is.
+     if (theIsRunAsRegression) {
+         for (int i = 0; i < 25; i++)
+-            theWorldPtr->simStep();
++            theRegressionSimTime += theWorldPtr->simStep();
+         theWorldPtr->updateViewWorld(true);
+         theFramesPerSecond++;
+         return;
+--- a/src/view/RegressionTest.h	2026-08-16 11:44:28.728994858 -0400
++++ b/src/view/RegressionTest.h	2026-08-16 11:44:51.839081965 -0400
+@@ -79,6 +79,10 @@
+     States theState;
+     QTimer theRegressionTimer;
+ 
++    /// Value of ViewWorld::theRegressionSimTime at which the current level's play phase is
++    /// over. Zero when the state machine is not waiting out a level.
++    qreal theSimDeadline;
++
+     /// will contain the names of the various regression states
+     QStringList theStateNames;
+ 
+--- a/src/view/RegressionTest.cpp	2026-08-16 11:44:28.734994880 -0400
++++ b/src/view/RegressionTest.cpp	2026-08-16 11:45:04.156128346 -0400
+@@ -23,6 +23,7 @@
+ #include <MainWindow.h>
+ #include "ui_MainWindow.h"
+ #include <resizinggraphicsview.h>
++#include "ViewWorld.h"
+ #include <WinFailDialog.h>
+ 
+ #include <QCoreApplication>
+@@ -42,13 +43,6 @@
+ const qreal theTestAddition   = 0.0;
+ #endif
+ 
+-/// A regression run plays at ViewWorld's "real fast" rate, whose ceiling is 6 seconds of
+-/// physics per wall second. The waits below are wall time but stand for a simulated
+-/// duration, so they divide by this. Deliberately 4 and not 6: on a loaded box the sim
+-/// falls short of the ceiling, and a wait that expires early would cut a level short and
+-/// report a solution as a failure. Raise it only with a rerun of the known solves.
+-const int theSimSpeedup = 4;
+-
+ #ifdef QT_DEBUG
+ 
+ RegressionTest::RegressionTest(MainWindow *parent) :
+@@ -58,7 +52,8 @@
+     theHintIndex(-1),
+     theLevelIndex(0),
+     theMainWindowPtr(parent),
+-    theState(RegressionTest::START)
++    theState(RegressionTest::START),
++    theSimDeadline(0.0)
+ {
+     theLevels = theStartFileName.split(",");
+     DEBUG1("levels: %s", ASCII(theStartFileName));
+@@ -131,6 +126,20 @@
+ 
+ void RegressionTest::slotRegressionProgress(void)
+ {
++    // A level's budget is a duration of PHYSICS, so wait for the physics rather than for a
++    // number of milliseconds that stands in for it. Measured over 892 archived adjudications
++    // under the wall-clock wait, the same placement reached anywhere from 36.3 to 45.8
++    // simulated seconds depending only on machine load -- and not one of them reached the
++    // end of its nominal budget, so every NOT SOLVED in that corpus means "did not win
++    // before we stopped looking" rather than "did not win". A win or a death still
++    // short-circuits: those are answers, and there is nothing left to wait for.
++    if (theSimDeadline > 0.0) {
++        if (ViewWorld::theRegressionSimTime < theSimDeadline && !theIsWon && !theIsFail) {
++            theRegressionTimer.start(100);
++            return;
++        }
++        theSimDeadline = 0.0;
++    }
+ 
+     int myNextDelay = 0;
+     if (!theLevels[theLevelIndex].contains(':')) {
+@@ -160,7 +169,8 @@
+         break;
+     case STARTLEVELTOFAIL: { // Start Level, expect failure - either death or timeout
+         QTest::keyClick(theMainWindowPtr, Qt::Key_Space);
+-        myNextDelay = myLevelDurationSeconds * 1000 / theSimSpeedup;
++        theSimDeadline = ViewWorld::theRegressionSimTime + myLevelDurationSeconds;
++        myNextDelay = 100;
+         theIsWon = false;
+         theIsFail = false;
+         theWantWonFail = true;
+@@ -211,7 +221,8 @@
+     case STARTLEVELTOWIN: { // Start Level, expect success
+         theWantWonFail = true;
+         QTest::keyClick(theMainWindowPtr, Qt::Key_Space);
+-        myNextDelay = myLevelDurationSeconds * 1000 / theSimSpeedup;
++        theSimDeadline = ViewWorld::theRegressionSimTime + myLevelDurationSeconds;
++        myNextDelay = 100;
+         theIsWon = false;
+         theIsFail = false;
+         // Registering for success event (and fail event!) was already done in resizinggraphicsview

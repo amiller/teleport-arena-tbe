@@ -586,7 +586,9 @@ def cmd_solve(level, places, record=True):
     # whether the mechanism worked -- the spawn-overlap exploit was caught by a person
     # watching a replay, and the referee still cannot see it. Failures are also the ones
     # worth watching. Affordable since the regression runs at 4x: an attempt is ~20s, not 70.
-    env = {"DUR": "30", "RECORD": "1"} if record else {"DUR": "30"}
+    # DUR is a watchdog, not the budget. The level ends after BUDGET simulated
+    # seconds (sim-budget.patch); this only bounds a game that has stopped stepping.
+    env = {"DUR": "90", "RECORD": "1"} if record else {"DUR": "90"}
     r = _docker(["bash", "/run.sh", f"/solve/{cand.name}"], env)
     out = r.stdout.strip() or r.stderr.strip()
     print(out)
@@ -601,11 +603,12 @@ def cmd_solve(level, places, record=True):
             added = int(m[-1])
     # A crash is its own outcome. Told apart from a failure so an agent stops tuning a
     # mechanism the referee never got to judge, and so the page can say what happened.
-    if "VERDICT      : CRASHED" in out:
-        clip, logname = _archive(level)
-        _log(level, places, "CRASHED", "", replace_running=True, clip=clip, log=logname)
-        print("\nADJUDICATED  : CRASHED  (the game died; this says nothing about your parts)")
-        return
+    for tag, why in (("CRASHED", "the game died"), ("STALLED", "the game stopped stepping")):
+        if f"VERDICT      : {tag}" in out:
+            clip, logname = _archive(level)
+            _log(level, places, tag, "", replace_running=True, clip=clip, log=logname)
+            print(f"\nADJUDICATED  : {tag}  ({why}; this says nothing about your parts)")
+            return
     won = "VERDICT      : SOLVED" in out   # slot_Won, not the state label
     if won and added != len(places):
         verdict = f"INVALID ({added} of {len(places)} parts placed)"

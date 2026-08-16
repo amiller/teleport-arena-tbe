@@ -1,6 +1,28 @@
 --- a/src/view/ViewWorld.cpp	2026-08-15 13:37:05.961034650 -0400
-+++ b/src/view/ViewWorld.cpp	2026-08-15 18:28:21.963782611 -0400
-@@ -188,7 +188,17 @@
++++ b/src/view/ViewWorld.cpp	2026-08-15 22:30:26.147646215 -0400
+@@ -96,6 +96,21 @@
+ 
+ void ViewWorld::on_timerTick()
+ {
++    // A regression run takes a FIXED number of steps per tick. The loop below is a
++    // catch-up against the wall clock, which is right for a person watching and wrong for
++    // an adjudicator: on a machine that cannot keep up, fewer steps run, less of the level
++    // happens, and the referee rules on a shorter simulation. Measured before this change,
++    // one level reached 12.84s of physics out of a nominal 25s budget on one box and ran to
++    // completion on another -- the same placement, two verdicts. Stepping unconditionally
++    // makes the amount of physics a function of ticks rather than of how busy the machine is.
++    if (theIsRunAsRegression) {
++        for (int i = 0; i < 25; i++)
++            theWorldPtr->simStep();
++        theWorldPtr->updateViewWorld(true);
++        theFramesPerSecond++;
++        return;
++    }
++
+     QTime myCurrentTime = QTime::currentTime();
+     // whatever happens, draw every 25 frames
+     for (int i = 0; i < 25 && theSimulationTime < myCurrentTime; i++) {
+@@ -188,7 +203,17 @@
          theWorldPtr->createPhysicsWorld();
      isSimRunning = true;
      theSimulationTime = QTime::currentTime();

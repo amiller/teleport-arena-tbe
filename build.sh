@@ -6,7 +6,8 @@
 #   Dockerfile.debug   ubuntu -> tbe built as a DEBUG build, which is the only one whose
 #                      --regression driver exists at all (it is inside #ifdef QT_DEBUG)
 #   Dockerfile.wm      + a window manager, so key events land where they are aimed
-#   Dockerfile.feedback + our three patches: goal logging, world tracing, and the speedup
+#   Dockerfile.feedback + our four patches: goal logging, world tracing, the speedup, and
+#                      a level budget counted in simulated seconds rather than wall ones
 #
 # Only the last image, tbe-fb, is what tbe.py actually uses. Dockerfile.tbe is the plain
 # release build kept for reference; it cannot run a regression.
@@ -24,7 +25,7 @@ docker build -q -f harness/Dockerfile.debug -t tbe-dbg harness/
 echo "==> tbe-dbg-wm   (+ window manager)"
 docker build -q -f harness/Dockerfile.wm -t tbe-dbg-wm harness/
 
-echo "==> tbe-fb       (+ goal logging, world trace, 4x regression)"
+echo "==> tbe-fb       (+ goal logging, world trace, 4x regression, simulated budget)"
 docker build -q -f harness/Dockerfile.feedback -t tbe-fb .
 
 echo

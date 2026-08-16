@@ -10,7 +10,7 @@ that line rather than convenience:
 
 **GPL-2.0 — `tbe-derived/`**
 
-- The three patches. A diff against GPL source is a derivative of it. This is not a close
+- The four patches. A diff against GPL source is a derivative of it. This is not a close
   call.
 - `answer-keys.json`, conservatively. It is the levels' own `<hints>` blocks, copied out of
   TBE's level XML — content of the game, not a description of it. The tool that extracted it

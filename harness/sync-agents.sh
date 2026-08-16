@@ -38,10 +38,6 @@ while true; do
       # Every attempt an agent has ever made, not just its latest. tbe.py keeps each one
       # under archive/ with its own timestamp; they are ~150kB apiece and they are the only
       # record of what the agent tried before it got there.
-      # The level health sweep lives in the main checkout, not a worktree, and the viewer
-      # needs it to know which levels are worth handing out.
-      rsync -qt "$HOST:$REMOTE_MAIN/playtest/harness/out/level-health.json" \
-            "$OUT/level-health.json" 2>/dev/null
       mkdir -p "$OUT/archive"
       rsync -qrt --ignore-existing "$HOST:$d/archive/" "$OUT/archive/" 2>/dev/null
     fi

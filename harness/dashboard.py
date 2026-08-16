@@ -825,7 +825,7 @@ def already_tried(level, limit=60):
 
 def playable_unsolved():
     """Levels worth handing out: the health sweep says playable, and nobody has solved them."""
-    hf = OUT / "level-health.json"
+    hf = HERE / "level-health.json"
     health = json.loads(hf.read_text()) if hf.exists() else {}
     done = {pathlib.Path(r["level"]).stem for r in attempts()
             if r.get("verdict") in ("SOLVED", "COPIED")}
@@ -1082,7 +1082,7 @@ def recorder():
             # keyboard, and its recordings come back clean.
             cand = tbe._write_candidate(lv, places, "author")
             r = tbe._docker(["bash", "/run.sh", f"/solve/{cand.name}"],
-                            {"DUR": "40", "RECORD": "1"})
+                            {"DUR": "90", "RECORD": "1"})
             if "Segmentation fault" in (r.stdout + r.stderr):
                 # Some levels crash this build outright -- the_pit and goal_maker do, on the
                 # unpatched build too, so it is the game and not the speedup. Nothing to
@@ -1426,7 +1426,7 @@ def _cards(clips):
     cards = []
     for c in clips:
         cls = {"SOLVED": "ok", "COPIED": "copied", "AUTHOR": "author",
-               "RUNNING": "run", "CRASHED": "crash"}.get(c["badge"], "no")
+               "RUNNING": "run", "CRASHED": "crash", "STALLED": "crash"}.get(c["badge"], "no")
         fresh = '<span class="v new">NEW</span>' if c.get("age", 1e9) < 3600 else ""
         # The whole card is the click target, with an overlay so a click lands on the card
         # rather than on the video's own play button -- clicking most tiles used to do

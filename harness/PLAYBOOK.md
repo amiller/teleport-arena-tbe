@@ -74,6 +74,15 @@ fail, then plays it with your parts, which must win. The only evidence of a win 
   violently at t=0 and the referee cannot tell that explosion from a mechanism. Check your
   placement against the scene geometry in `brief` before running it.
 
+Two more verdicts are about the game rather than about you, and neither is a reason to
+change your mechanism: **CRASHED**, the game segfaulted before ruling, and **STALLED**, the
+game stopped stepping mid-level and never ruled. Both mean the referee never looked.
+
+A **NOT SOLVED** does mean it looked. Each phase gets a fixed number of *simulated* seconds
+— 25 by default — counted in physics rather than in wall time, so the same placement gets
+the same verdict on a busy machine as on an idle one. A contraption that needs longer than
+that to finish reads as a failure, which is a real constraint on the solution and not noise.
+
 ## Check before you simulate
 
     python3 playtest/harness/tbe.py check <level> Part@X,Y ...

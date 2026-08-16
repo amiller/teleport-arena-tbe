@@ -14,7 +14,8 @@ change to the game, so each one is a derivative work of it.
 |---|---|---|
 | `goal-feedback.patch` | `src/model/Goal.cpp` | logs what each position goal sees against its limit, so a failed attempt says *why* rather than just "no" |
 | `world-trace.patch` | `src/model/World.cpp` | logs every object's id, position and angle twice a simulated second, so a run can be debugged from numbers instead of video |
-| `fast-sim.patch` | `src/view/ViewWorld.cpp`, `src/view/RegressionTest.cpp` | runs a regression at 4x instead of half real time, scales the driver's waits to match, and stops the progress dialog covering the playfield |
+| `fast-sim.patch` | `src/view/ViewWorld.cpp`, `src/view/RegressionTest.cpp` | runs a regression at 4x instead of half real time, steps a fixed amount per tick, and stops the progress dialog covering the playfield |
+| `sim-budget.patch` | `src/view/ViewWorld.cpp`, `src/view/RegressionTest.cpp` | ends a level after a number of **simulated** seconds rather than a wall-clock wait standing in for one |
 
 `fast-sim.patch` is the one worth reading if you are doing anything similar. Two notes are in
 its comments and both cost time to find: TBE advances its simulated clock by
@@ -22,6 +23,22 @@ its comments and both cost time to find: TBE advances its simulated clock by
 so the "real fast" setting of 60 truncates the advance to zero and the stepping loop then
 saturates the event loop; and the regression driver's progress dialog opens in the middle of
 the play area, where it covers the thing you are trying to record.
+
+`sim-budget.patch` is the one to take if you are adjudicating with this driver, because
+without it the driver does not really adjudicate. TBE's regression runner waits out a level
+with a wall-clock delay, `myLevelDurationSeconds * 1000` milliseconds, standing in for that
+many seconds of physics. On a machine that cannot deliver physics that fast the wait expires
+first and the level is cut short — and a level cut short reports a working solution as a
+failure. Across 939 of our own adjudications, only the 41 that ended in a win ever reached
+the driver's own `Regression Successful`; the other 892 were interrupted, at anywhere from
+36.3 to 45.8 simulated seconds for the same nominal 25-second budget, varying with nothing
+but machine load. The patch has `ViewWorld` accumulate the simulated seconds it steps and
+has the state machine wait on that number. A win or a death still short-circuits.
+
+One thing it exposes rather than fixes: a level whose simulation stops advancing will now
+wait forever, because the clock it is waiting on has stopped. `harness/run-attempt.sh`
+watches the log for silence and calls that **STALLED**, which is a different thing from a
+crash and a very different thing from a loss.
 
 ## The answer keys
 

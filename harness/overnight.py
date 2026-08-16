@@ -73,7 +73,7 @@ def gather_attempts():
 
 def playable_unsolved():
     """Levels worth handing to an agent: playable, and nobody has solved them yet."""
-    health_file = tbe.OUT / "level-health.json"
+    health_file = pathlib.Path(__file__).resolve().parent / "level-health.json"
     health = json.loads(health_file.read_text()) if health_file.exists() else {}
     solved = {pathlib.Path(r["level"]).stem for r in dash.attempts()
               if r.get("verdict") in ("SOLVED", "COPIED")}

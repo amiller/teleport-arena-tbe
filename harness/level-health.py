@@ -10,9 +10,13 @@ verdict says something about the LEVEL rather than about the player:
     SOLVED   the level is playable and the referee agrees with its own author
     CRASHED  the game dies on it -- the_pit and goal_maker do, and an agent that is sent
              here will be told NOT SOLVED forever by a process that already died
+    STALLED  the game stops stepping mid-level and never rules -- little_balloon_puzzle
+             does. Same problem as CRASHED, different mechanism
     other    interesting, and worth a look: the author's answer no longer wins
 
-Writes out/level-health.json. Levels already recorded are skipped unless --redo.
+Writes level-health.json next to this script -- it is a property of the level set
+and the container, not of a machine, so it is committed and both hosts read the same one.
+Levels already recorded are skipped unless --redo.
 """
 import json
 import pathlib
@@ -22,7 +26,7 @@ import time
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import tbe
 
-HEALTH = tbe.OUT / "level-health.json"
+HEALTH = pathlib.Path(__file__).resolve().parent / "level-health.json"
 
 
 def main():
@@ -42,10 +46,12 @@ def main():
             HEALTH.write_text(json.dumps(health, indent=1, sort_keys=True))
             continue
         cand = tbe._write_candidate(lv, places, "health")
-        r = tbe._docker(["bash", "/run.sh", f"/solve/{cand.name}"], {"DUR": "40"})
+        r = tbe._docker(["bash", "/run.sh", f"/solve/{cand.name}"], {"DUR": "90"})
         out = (r.stdout or "") + (r.stderr or "")
         if "VERDICT      : CRASHED" in out or "Segmentation fault" in out:
             v = "CRASHED"
+        elif "VERDICT      : STALLED" in out:
+            v = "STALLED"
         elif "VERDICT      : SOLVED" in out:
             v = "SOLVED"
         else:
