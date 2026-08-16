@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>teleport-arena-tbe — agents playing The Butterfly Effect</title>
+<meta name="description" content="A harness that makes the physics puzzle game The Butterfly Effect playable by a program, adjudicated by the game's own referee.">
+<style>
+  :root{
+    --ground:#E3E9DE; --card:#FFFFFF; --ink:#1A212B; --rule:#CBD6C6; --dim:#5D6B62;
+    --win:#0E9C90; --bad:#D2492A; --live:#C08A0B; --crash:#6B7280;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ground:#14181A; --card:#1D2326; --ink:#E9EFE7; --rule:#2E3739; --dim:#A7B4AE;
+      --win:#1FBFB0; --bad:#F0674A; --live:#F5C542; --crash:#94A3AC;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);
+       font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:56px 20px 90px;
+        display:flex;flex-direction:column;gap:44px}
+  .eyebrow{font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.19em;
+           text-transform:uppercase;color:var(--dim);margin:0 0 11px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.06;letter-spacing:-.03em;
+     font-weight:800;margin:0}
+  h2{font-size:19px;letter-spacing:-.015em;font-weight:750;margin:0 0 6px}
+  .lede{font-size:18px;color:var(--dim);margin:15px 0 0;max-width:62ch}
+  p{margin:0 0 12px;max-width:68ch}
+  p:last-child{margin-bottom:0}
+  section{display:flex;flex-direction:column;gap:15px}
+  .card{background:var(--card);border:1.5px solid var(--rule);border-radius:4px;padding:20px 22px}
+  code,pre{font-family:ui-monospace,Menlo,monospace}
+  code{font-size:13.5px;background:color-mix(in srgb,var(--ink) 7%,transparent);
+       padding:1px 5px;border-radius:3px}
+  pre{background:var(--card);border:1.5px solid var(--rule);border-radius:4px;
+      padding:16px 18px;overflow-x:auto;font-size:13px;line-height:1.6;margin:0}
+  pre code{background:none;padding:0;font-size:13px}
+
+  .films{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  figure{margin:0;display:flex;flex-direction:column;gap:8px}
+  .film{background:#0B0E10;border:1.5px solid var(--rule);border-radius:4px;
+        overflow:hidden;line-height:0}
+  .film video{width:100%;display:block}
+  figcaption{font:12.5px/1.5 ui-monospace,Menlo,monospace;color:var(--dim)}
+  figcaption b{color:var(--ink)}
+  .chip{font:700 10.5px/1.7 ui-monospace,Menlo,monospace;letter-spacing:.05em;
+        padding:2px 8px;border-radius:2px;color:#fff;display:inline-block}
+  .chip.ok{background:var(--win)} .chip.no{background:var(--bad)}
+  .chip.crash{background:var(--crash)}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  .scroll{overflow-x:auto}
+  th{text-align:left;font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.11em;
+     text-transform:uppercase;color:var(--dim);padding:11px 13px;
+     border-bottom:1.5px solid var(--rule)}
+  td{padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.n{font-family:ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums;
+       white-space:nowrap;font-weight:700}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+         background:var(--rule);border:1.5px solid var(--rule);border-radius:4px;overflow:hidden}
+  .stat{background:var(--card);padding:17px 19px}
+  .stat .v{font:800 25px/1 ui-monospace,Menlo,monospace;display:block;letter-spacing:-.02em}
+  .stat .k{font-size:12px;color:var(--dim);display:block;margin-top:6px;line-height:1.45}
+  a{color:inherit;text-decoration-color:var(--rule);text-underline-offset:2px}
+  a:hover{text-decoration-color:var(--live)}
+  a:focus-visible{outline:2px solid var(--live);outline-offset:2px;border-radius:2px}
+  .btn{display:inline-block;padding:9px 16px;border:1.5px solid var(--ink);border-radius:3px;
+       font:700 12.5px ui-monospace,Menlo,monospace;text-decoration:none;background:var(--ink);
+       color:var(--ground)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .row{display:flex;gap:11px;flex-wrap:wrap}
+  footer{color:var(--dim);font-size:13.5px;border-top:1.5px solid var(--rule);padding-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">teleport-arena-tbe</p>
+  <h1>Agents playing The Butterfly Effect</h1>
+  <p class="lede">A harness that makes a 2009 physics puzzle game playable by a program — and
+  adjudicated by the game's own referee rather than by something we wrote about it. Roughly 17
+  seconds per attempt, headless, in a container.</p>
+  <div class="row" style="margin-top:22px">
+    <a class="btn" href="https://github.com/amiller/teleport-arena-tbe">Repository</a>
+    <a class="btn ghost" href="https://github.com/the-butterfly-effect/tbe">The game (GPL-2.0)</a>
+  </div>
+</header>
+
+<section>
+  <h2>Watching one work</h2>
+  <p>Every attempt records itself. These are real adjudicated runs — the referee plays the level
+  empty to confirm it fails, resets, inserts the agent's parts, and plays again.</p>
+  <div class="films">
+    <figure>
+      <div class="film"><video src="clips/solved-bowling-pin.mp4" autoplay loop muted playsinline controls></video></div>
+      <figcaption><span class="chip ok">SOLVED</span> <b>bowling_pin_plays_soccer</b><br>
+      <code>TennisBall@3.5,1.2</code> — one ball, dropped to run the ramp and take the pins.</figcaption>
+    </figure>
+    <figure>
+      <div class="film"><video src="clips/solved-cacti.mp4" autoplay loop muted playsinline controls></video></div>
+      <figcaption><span class="chip ok">SOLVED</span> <b>attack_of_the_killer_cacti</b><br>
+      Four angled floors, threading a ball past the hazards.</figcaption>
+    </figure>
+    <figure>
+      <div class="film"><video src="clips/solved-bouncing-balls.mp4" autoplay loop muted playsinline controls></video></div>
+      <figcaption><span class="chip ok">SOLVED</span> <b>bouncing_balls</b><br>
+      <code>RightRamp@1.200,2.100</code> — one ramp, and every ball lands where the goals want it.</figcaption>
+    </figure>
+    <figure>
+      <div class="film"><video src="clips/attempt-hattrick.mp4" autoplay loop muted playsinline controls></video></div>
+      <figcaption><span class="chip no">NOT SOLVED</span> <b>hattrick</b><br>
+      A failure, which is most of them — and the more useful thing to watch.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <h2>Try it</h2>
+  <pre><code>git clone https://github.com/amiller/teleport-arena-tbe
+cd teleport-arena-tbe
+./build.sh                                   # builds the game and the patched referee
+python3 harness/tbe.py setup                 # clones the game, lifts out the answer keys
+python3 harness/tbe.py brief finished/bouncing_balls.xml
+python3 harness/tbe.py solve finished/bouncing_balls.xml RightRamp@1.200,2.100
+
+ADJUDICATED  : SOLVED</code></pre>
+  <p>A placement is <code>Part@X,Y</code>, optionally an angle, optionally a size —
+  <code>LeftRamp@4.452,2.715,0,2.697x0.786</code>. The size matters: 155 placements across the
+  level set resize a part, and some levels cannot be solved without it.</p>
+</section>
+
+<section>
+  <h2>The verdicts are the interesting part</h2>
+  <p>Binary solved / not-solved is not enough to be honest with. Each of the last four exists
+  because a version without it produced a wrong conclusion.</p>
+  <div class="scroll"><table>
+    <tr><th>Verdict</th><th>Meaning</th></tr>
+    <tr><td><span class="chip ok">SOLVED</span></td>
+        <td>The game's own <code>slot_Won</code> fired. The only evidence accepted.</td></tr>
+    <tr><td><span class="chip no">NOT SOLVED</span></td>
+        <td>The referee ran and the level was not won. A real result about the mechanism.</td></tr>
+    <tr><td>UNPROVEN</td>
+        <td>Recorded as a win, but nothing in the game's log confirms it.</td></tr>
+    <tr><td>COPIED</td>
+        <td>The placements match the level author's own answer key.</td></tr>
+    <tr><td>INVALID</td>
+        <td>Won, but the parts were never placed — the game silently drops a hint naming a part
+        that is not in that level's toolbox.</td></tr>
+    <tr><td><span class="chip crash">CRASHED</span></td>
+        <td>The game died before the referee ruled. Says nothing about the mechanism.</td></tr>
+  </table></div>
+  <p><code>CRASHED</code> was added after an agent spent 31 attempts and twelve minutes being
+  told its mechanism was wrong by a process that had already segfaulted. Running every level's
+  own author solution through the referee then showed <strong>26 of 74 levels crash the
+  game</strong> — so an agent is never sent at one.</p>
+</section>
+
+<section>
+  <h2>What we learned pointing agents at it</h2>
+  <div class="stats">
+    <div class="stat"><span class="v">33%</span><span class="k">of agent shell commands were
+      reading the game's C++ to find out what a part weighs</span></div>
+    <div class="stat"><span class="v">68% &rarr; 0%</span><span class="k">of attempts that started
+      <em>inside</em> another body, before and after a geometry check existed</span></div>
+    <div class="stat"><span class="v">118</span><span class="k">attempts made by an agent whose
+      prompt said stop at 8</span></div>
+    <div class="stat"><span class="v">0</span><span class="k">image reads that worked — the model
+      driving it has no vision, and found out mid-run</span></div>
+  </div>
+  <div class="card">
+    <h2>The blind agent</h2>
+    <p>One agent extracted video frames, called its read tool on a PNG, and got back
+    <em>"The model doesn't support images."</em> It then wrote ImageMagick pixel-diffs to locate
+    the ball by darkness. A second agent independently did the same thing two minutes later.</p>
+    <p>Neither needed to: the simulation already logs every object's position twice a simulated
+    second. <code>tbe.py where</code> exists because of them.</p>
+  </div>
+  <p>The pattern underneath all of it: given only an expensive binary oracle, agents degrade into
+  a twenty-second-per-sample random search. Given cheap verification — <code>check</code> for
+  geometry, <code>where</code> for what actually moved, a generated part sheet instead of reading
+  C++ — the reasoning re-engages. Overlapping placements went from 68% of attempts to none.</p>
+</section>
+
+<section>
+  <h2>Licence</h2>
+  <p>MIT, except <code>tbe-derived/</code>, which is GPL-2.0 because it derives from the game.
+  The reasoning is in <a href="https://github.com/amiller/teleport-arena-tbe/blob/main/NOTICE.md">NOTICE.md</a>,
+  including the part that is easy to get wrong: the levels are individually licensed and mostly
+  CC0, not GPL.</p>
+  <p>The Butterfly Effect is by Klaas van Gend and contributors. It is not vendored here —
+  <code>setup</code> clones it — and all level design, artwork and content is theirs.</p>
+</section>
+
+<footer>
+  Numbers are measured on the running system, not estimated. The harness, the playbook it gives
+  agents, and the patches to the game are all in the repository.
+</footer>
+
+</div>
+</body>
+</html>

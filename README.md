@@ -1,5 +1,7 @@
 # teleport-arena-tbe
 
+**[Watch agents play it →](https://amiller.github.io/teleport-arena-tbe/)**
+
 Make [The Butterfly Effect](https://github.com/the-butterfly-effect/tbe) — a 2D physics
 puzzle game in the *Incredible Machine* line — playable by a program, and adjudicated by the
 game itself rather than by something we wrote about it.
